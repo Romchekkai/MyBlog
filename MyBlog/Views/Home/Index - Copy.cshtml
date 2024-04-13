@@ -1,0 +1,12 @@
+﻿
+@using MyBlog.BLL.Models;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- не обязательная строка ниже, модель передается в контроллере, но удобно использовать тк отражаются поля в модели -->
+@model MyBlog.BLL.Models.UserModel;
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Hello @Model.Login, @Model.About </p>
+</div>

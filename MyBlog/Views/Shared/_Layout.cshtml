@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyBlog</title>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reglogmenu.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/MyBlog.styles.css" asp-append-version="true" />
+
+</head>
+<body>
+    <header class="header">
+        <div class="header__section">
+            <div class="header__item logo">
+                <img src="~/img/Logo.jpg" alt="MyBlog">
+            </div>
+            <div class="header__item search">
+                <input type="search">
+            </div>
+        </div>
+        <div class="header__section">
+            <div class="header__item backhome"><a href="#">Главная</a></div>
+            <div class="header__item autorhise_menu">
+                <img class="userPhoto" src="~/img/user.png" alt="">
+                <div class="userData">
+                    <h5>Email@email.com</h5>
+                    <h6><a href="#">Войти</a></h6>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="menu" id="menu">
+            <button class="menu-btn" id="menu-btn">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="menu-list" id="menu-list">
+                <a asp-area="" asp-controller="Home" asp-action="Index">MyBlog</a>
+                <a href="#">Новости</a>
+                <a href="#">Контакты</a>
+                <a href="#">Портфолио</a>
+            </nav>
+        </div>
+        <div class="content" id="content">
+            <section class="main">          
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>               
+            </section>
+            <section class="news">
+                <h2>Новости</h2>
+            </section>
+            <section class="contacts">
+                <h2>Контакты</h2>
+            </section>
+            <section class="portfolio">
+                <h2>Портфолио</h2>
+            </section>
+        </div>
+    </div>
+    <footer class="footer">
+        <div>
+            &copy; 2024 - MyBlog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

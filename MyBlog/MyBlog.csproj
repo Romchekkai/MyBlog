@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="images\Logo.jpg" />
+    <Content Include="images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyBlog.BLL\MyBlog.BLL.csproj" />
+    <ProjectReference Include="..\MyBlog.DAL\MyBlog.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="static\" />
+  </ItemGroup>
+
+</Project>
