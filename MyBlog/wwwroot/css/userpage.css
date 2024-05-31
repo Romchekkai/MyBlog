@@ -1,0 +1,60 @@
+﻿.mainPage {
+    max-width: 100vh;
+    display: flex;
+}
+
+.profile {
+    height: 50%;
+    padding: 2em;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #eddcbb;
+}
+
+    .profile img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
+
+    .profile p {
+        margin-bottom: 10px;
+    }
+
+.editUserProfileButton {
+    background-color: rgba(54, 46, 45,0.4);
+    color: #570202;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+
+.posts {
+    width: 40vh;
+    padding: 2em;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #eddcbb;
+}
+
+    .posts ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .posts li {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .posts h2 {
+        margin-top: 0;
+    }

@@ -7,17 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="images\Logo.jpg" />
-    <Content Include="images\user.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\posts.css" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.BLL\MyBlog.BLL.csproj" />
     <ProjectReference Include="..\MyBlog.DAL\MyBlog.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="static\" />
   </ItemGroup>
 
 </Project>

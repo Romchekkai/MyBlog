@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using MyBlog.BLL.Mapping;
 using MyBlog.BLL.Services.UserServices;
 using MyBlog.DAL.Repository;
+using MyBlog.Mapping;
 using System.Reflection;
 
 
@@ -16,8 +17,13 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 
 
 builder.Services.AddTransient<IUserService,UserService>();
-
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+builder.Services.AddTransient<IArticleService, ArticleService>();
+builder.Services.AddTransient<IArticleRepository, ArticleRepository>();
+
+builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 
 
 
@@ -26,7 +32,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => options.LoginPath = "/Login");
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -55,6 +63,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

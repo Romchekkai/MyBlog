@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var myModel = ViewBag.MyModel;
+    <script>document.getElementById('vrty').textContent= @myModel</script>
+}
+@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +12,7 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/reglogmenu.css" asp-append-version="true">
+    
     <link rel="stylesheet" href="~/MyBlog.styles.css" asp-append-version="true" />
 
 </head>
@@ -15,19 +20,34 @@
     <header class="header">
         <div class="header__section">
             <div class="header__item logo">
-                <img src="~/img/Logo.jpg" alt="MyBlog">
+                <img src="~/img/logo.png" alt="MyBlog">
             </div>
             <div class="header__item search">
                 <input type="search">
             </div>
         </div>
         <div class="header__section">
-            <div class="header__item backhome"><a href="#">Главная</a></div>
+            <div class="header__item backhome"><a id="backhome" asp-controller="Home" asp-action="Index">Главная</a></div>
             <div class="header__item autorhise_menu">
-                <img class="userPhoto" src="~/img/user.png" alt="">
+                @if (User.FindFirst("userPhoto") != null)
+                {
+                    <img class="userPhoto" src="@User.FindFirst("userPhoto").Value" alt="">
+                }
+                else
+                {
+                    <img class="userPhoto" src="~/img/user.png" alt="">
+                }
                 <div class="userData">
-                    <h5>Email@email.com</h5>
-                    <h6><a href="#">Войти</a></h6>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <h5>@User.FindFirst(ClaimTypes.Email).Value</h5>
+                    }
+                    else
+                    {
+                        <h5 ></h5>
+                    }
+                    <h6><a asp-controller="AccountManager" asp-action="Login">Войти</a></h6>
+                    <h6><a asp-controller="AccountManager" asp-action="LogOut">Выйти</a></h6>
                 </div>
             </div>
         </div>
@@ -39,14 +59,14 @@
             </button>
             <nav class="menu-list" id="menu-list">
                 <a asp-area="" asp-controller="Home" asp-action="Index">MyBlog</a>
-                <a href="#">Новости</a>
+                <a asp-area="" asp-controller="AccountManager" asp-action="UserPage">Моя страница</a>
                 <a href="#">Контакты</a>
                 <a href="#">Портфолио</a>
             </nav>
         </div>
         <div class="content" id="content">
             <section class="main">          
-                    <main role="main" class="pb-3">
+                    <main role="main" class="renderBlock">
                         @RenderBody()
                     </main>               
             </section>

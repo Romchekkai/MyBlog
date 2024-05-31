@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyBlog.DAL.Entities
+namespace MyBlog.BLL.Models.UserModels
 {
-    public class Tag
+    public class TagModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

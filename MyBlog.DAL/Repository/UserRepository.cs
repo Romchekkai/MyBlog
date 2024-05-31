@@ -14,6 +14,8 @@ namespace MyBlog.DAL.Repository
         private readonly ApplicationContext _context;
         private UserRole admin = new UserRole(1, "Admin");
         private UserRole common = new UserRole(2, "User");
+        private UserRole moderator = new UserRole(3,"Moderator");
+
         public UserRepository(ApplicationContext context)
         {
             _context = context;
@@ -23,23 +25,23 @@ namespace MyBlog.DAL.Repository
 
         }
 
-        public async Task CreateUser(User user)
+        public async Task CreateUser(UserEntity user)
         {
             user.RoleId = common.Id;
 
             var findUserEmail = _context.Users.Any(e=>e.Email == user.Email);
-            var indUserLogin = _context.Users.Any(u=>u.Login == user.Login);
+            var findUserLogin = _context.Users.Any(u=>u.Login == user.Login);
 
-            if (!findUserEmail && !indUserLogin)
+            if (!findUserEmail && !findUserLogin)
             {
                 await _context.Users.AddAsync(user);
                 _context.SaveChanges();
             }
-            else { Console.WriteLine("User id {0} is exist", user.Id); return; }
+            else { Console.WriteLine("User id {0} exists", user.Id); return; }
         }
-        public async Task<User> FindUserById(Guid id)
+        public async Task<UserEntity> FindUserById(Guid id)
         {
-           User? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+           UserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
            if(user !=null)
            return user;
 
@@ -52,33 +54,74 @@ namespace MyBlog.DAL.Repository
             if (deletedUser != null)
                 _context.Users.Remove(await deletedUser);
         }
-        public void UpdateUser(User user)
+        public async Task UpdateUser(UserEntity user)
         {
-            var userToUpdate =  FindUserById(user.Id);
+            var userToUpdate =  await FindUserById(user.Id);
             if (userToUpdate != null)
             _context.Update(userToUpdate);
             _context.SaveChanges();
         }
-        public User FindByEmail(string email)
+        public async Task<UserEntity> FindByLogin(string login)
         {
-            User? user = _context.Users.FirstOrDefault(u => u.Email == email);
-            if (user != null) return user;
+            UserEntity? user =  await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+            if(user is null) return null;
 
-            return null;
+            return user;
         }
-        public ICollection<User> GetAllUsers()
+        public async Task<UserEntity> FindByID(Guid id)
+        {
+            UserEntity? user = await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
+            if(user is null) return null;
+
+            return user;
+        }
+
+        public async Task<bool> CheckByEmail(string email)
+        {
+            bool check = await _context.Users.AnyAsync(u => u.Email == email);
+            return check;
+        }
+
+        public async Task<bool> CheckByLogin(string login)
+        {
+            bool check = await _context.Users.AnyAsync(l => l.Login == login);
+            return check;
+        }
+
+        public ICollection<UserEntity> GetAllUsers()
         {
             var users = _context.Users.ToList();
             return users;
         }
+
+        
+        /*  public async Task CreateArticle(UserEntity user)
+           {
+               user.RoleId = common.Id;
+
+               var findUserEmail = _context.Users.Any(e => e.Email == user.Email);
+               var findUserLogin = _context.Users.Any(u => u.Login == user.Login);
+
+               if (!findUserEmail && !findUserLogin)
+               {
+                   await _context.Users.AddAsync(user);
+                   _context.SaveChanges();
+               }
+               else { Console.WriteLine("User id {0} is exist", user.Id); return; }
+           }
+        */
+
     }
 
     public interface IUserRepository
     {
-        Task CreateUser(User user);
-        Task<User> FindUserById(Guid id);
+        Task CreateUser(UserEntity user);
+        Task<UserEntity> FindUserById(Guid id);
         void DeleteUser(Guid id);
-        void UpdateUser(User user);
-        User FindByEmail(string email);
+        Task UpdateUser(UserEntity user);
+        Task<UserEntity> FindByLogin(string login);
+        Task<UserEntity> FindByID(Guid id);
+        Task<bool> CheckByEmail(string email);
+        Task<bool> CheckByLogin(string login);
     }
 }

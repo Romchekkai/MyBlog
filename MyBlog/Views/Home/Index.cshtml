@@ -1,61 +1,100 @@
-﻿
-<div class="bodylog">
-  <div class="loginwr">
-    <div class="form-box login">
-      <h2 class="animation" style="--i:0; --j:12;">login</h2>
-      <form action="#">
-        <div class="input-box animation" style="--i:1; --j:13;">
-          <input type="text" required>
-          <label for="Username">Login</label>
-        </div>
-        <div class="input-box animation" style="--i:2; --j:14;">
-          <input type="password" required>
-          <label>Password</label>
-        </div>
-        <button type="submit" class="loginbtn animation" style="--i:5; --j:15;">Login</button>
-        <div class="logreg-link animation" style="--i:4; --j:16;">
-          <p>Нет аккаунта?
-            <a href="#" class="register-link animation" id="register-link">Регистрация</a>
-          </p>
-        </div>
-      </form>
-    </div> 
-    <div class="info-text login">
-      <h2 class="animation" style="--i:0; --j:12;">Добро <br>пожаловать</h2>
-      <p class="animation" style="--i:1; --j:13;">Мы рады вас видеть снова!</p>
+﻿@model IEnumerable<PostViewModel>;
+@using MyBlog.Models.AccountModel;
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/posts.css" asp-append-version="true">
+<div class="posts">
+    <div class="posts-header">
+        <div class="posts-article"> <h2>Добро пожаловать в наш блог</h2></div>
+        <div class="posts-tag"> <h6>JavaSript</h6></div>
     </div>
-    <div class="form-box register">
-      <h2 class="animation" style="--i:15; --j:0;">Регистрация</h2>
-      <form action="#">
-        <div class="input-box animation" style="--i:16; --j:1;">
-          <input type="text" required>
-          <label for="Username">Login</label>
+    <p>Здесь вы можете оставлять ваши взгляды на программирование по разным направлениям</p>
+    <div class="posts-comments">
+        <div class="comments-comment">
+            <table>
+                <tr>
+                    <td>
+                        <p>А также оставлять свои комментарии</p>
+
+                    </td>
+                    <td><a class="button-delete" href="">delete</a></td>
+                </tr>
+                <tr>
+                    <td><span>— Ваш автор, <time id="currentTime"></time></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
-        <div class="input-box animation" style="--i:17; --j:2;">
-          <input type="email" required>
-          <label for="email">E-mail</label>
-        </div>
-        <div class="input-box animation" style="--i:18; --j:3;">
-          <input type="password" required>
-          <label>Password</label>
-        </div>
-        <button type="submit" class="loginbtn animation" style="--i:19; --j:4;">Регистрация</button>
-        <div class="logreg-link animation" style="--i:20; --j:5;">
-          <p>Уже есть аккаунт?
-            <a href="#" class="login-link">Войти</a>
-          </p>
-        </div>
-      </form>
-    </div> 
-    <div class="info-text register">
-      <h2 class="animation" style="--i:15; --j:0;">Добро <br>пожаловать</h2>
-      <p class="animation" style="--i:16; --j:1;">Регистрируйтесь в нашем блоге!</p>
+        <form asp-controller="Blog" asp-action="CreateComment" method="post">
+            <div class="comment">
+                <div class="comments-input">
+                    <input type="hidden" name="postId" value="" />
+                    <input type="text" name="content" placeholder="Add a comment..." />
+                </div>
+                <div class="comments-button">
+                    <button type="submit">Post</button>
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
-    <script src="~/js/reglogmenu.js" asp-append-version="true"></script>
 </div>
+@if(Model !=null)
+{
+    @foreach (var post in Model)
+    {
+        <div class="comments">
+            <h2>@post.Title</h2>
+            <p>@post.Description</p>
+            <p>Posted on: <span>@post.DatePosted.ToString("yyyy-MM-dd")</span></p>
+            <div class="comments">
+                <h3>Comments:</h3>
+                <ul>
+                    @foreach (var comment in post.Comments)
+                    {
+                        <li>
+                            <p>@comment.Content</p>
+                            <p><span>— @comment.Author, @comment.DatePosted.ToString("yyyy-MM-dd")</span></p>
+                        </li>
+                    }
+                </ul>
+                <form asp-controller="Blog" asp-action="CreateComment" method="post">
+                    <input type="hidden" name="postId" value="@post.Id" />
+                    <input type="text" name="author" placeholder="Your name" />
+                    <input type="text" name="content" placeholder="Add a comment..." />
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+        </div>
+    }
+}
 
+<script>
+    var timeElement = document.getElementById('currentTime');
+    setInterval(function () {
+        var currentTime = new Date();
+        timeElement.textContent = currentTime.toLocaleTimeString();
+    }, 1000);
+</script>
 
-
-
-
+<!-- <div class="post">
+    <h2>Добро пожаловать в наш блог</h2>
+    <p>Здесь вы можете оставлять ваши взгляды на программирование по разным направлениям</p>
+    <div class="postsTag"> JavaSript </div>
+    <div class="comments">
+        <h3>Comments:</h3>
+        <ul>
+          <li>
+              <p>А также оставлять свои комментарии</p>
+                <p><span>— Ваш автор, <time id="currentTime"></time></span></p>
+          </li>
+        </ul>
+        <form asp-controller="Blog" asp-action="CreateComment" method="post">
+            <input type="hidden" name="postId" value="" />
+            <input type="text" name="author" placeholder="Your name" />
+            <input type="text" name="content" placeholder="Add a comment..." />
+            <button type="submit">Post</button>
+        </form>
+    </div>
+</div>  -->

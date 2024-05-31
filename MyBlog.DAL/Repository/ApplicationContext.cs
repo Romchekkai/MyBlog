@@ -10,7 +10,10 @@ namespace MyBlog.DAL.Repository
 {
     public class ApplicationContext: DbContext
     {
-        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<UserEntity> Users { get; set; } = null!;
+        public DbSet<ArticleEntity> Articles { get; set; }
+        public DbSet <CommentEntity> Comments { get; set; }
+        public DbSet <TagEntity> Tags { get; set; }
         public DbSet<UserRole> Roles { get; set; } = null!;
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
@@ -21,9 +24,18 @@ namespace MyBlog.DAL.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CommentEntity>()
+            .HasOne(u => u.User)
+            .WithMany().OnDelete(DeleteBehavior.Restrict);
+
+
+
+
+
             modelBuilder.Entity<UserRole>().HasData(
-                    new UserRole (1, "Admin"),
-                    new UserRole (2,"User")
+                    new UserRole (1,"Admin"),
+                    new UserRole (2,"User"),
+                    new UserRole (3,"Moderator")
             );
         }
     }

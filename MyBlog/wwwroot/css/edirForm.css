@@ -1,0 +1,58 @@
+﻿.input-boxe input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #050507;
+    padding-right: 23px;
+    font-size: 30px;
+    color: #050507;
+    font-weight: 500;
+    transition: .5s;
+}
+
+    .input-boxe input:focus,
+    .input-boxe input:valid {
+        border-bottom-color: #7C8685;
+    }
+
+.input-boxe label {
+    position: relative;
+    top: 50%;
+    font-size: 20px;
+    color: #050507;
+    pointer-events: none;
+    color: #8b9c3c;
+}
+
+.loginbtn {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px thick #050507;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #050507;
+    z-index: 1;
+    overflow: hidden;
+}
+
+    .loginbtn::before {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 300%;
+        background: linear-gradient(#7C8685,#AAACA1,#7C8685);
+        z-index: -1;
+        transition: .5s;
+    }
+
+    .loginbtn:hover::before {
+        top: 0;
+    }

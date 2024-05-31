@@ -1,8 +1,12 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.BLL.Models;
+using MyBlog.BLL.Models.UserModels;
 using MyBlog.BLL.Services.UserServices;
 using MyBlog.DAL.Entities;
 using MyBlog.Models;
+using MyBlog.Models.AccountModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace MyBlog.Controllers
@@ -11,70 +15,30 @@ namespace MyBlog.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IUserService _userService;
+        private IArticleService _articleService;
+        private IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IUserService userservice)
+        public HomeController(ILogger<HomeController> logger, IUserService userservice, IMapper mapper, IArticleService articleService)
         {
             _logger = logger;
             _userService = userservice;
+            _mapper = mapper;
+            _articleService = articleService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()// вхродящий параметр
         {
+            var user = User;
+            var posts = await _articleService.GetArticles();
+            if (user.Identity.Name is not null && posts != null)
+            {
+                var postModels = _mapper.Map<IEnumerable<PostViewModel>>(posts);
+
+                return View(postModels);
+            }
 
             return View();
         }
-        /* [HttpGet]
-         public async Task Index()
-         {
-             string content = @"<form method='post'>
-                 <label>Login:</label><br />
-                 <input name='Login' /><br />
-                 <label>Email:</label><br />
-                 <input name='email' /><br />
-                 <label>Дата рождения: </label><br />
-                 <input type='date'name='DateOfTheBirth'/><br />
-                 <label>About:</label><br />
-                 <input name='About' /><br />
-                 <label>Пароль: </label><br />
-                 <input type='password'name='Password'/><br />
-                 <input type='submit' value='Send' />
-             </form>";
-             Response.ContentType = "text/html;charset=utf-8";
-             await Response.WriteAsync(content);
-         }*/
-        [HttpPost]
-        public async Task<IActionResult> Index(UserModel model)
-        {
-
-            /*Using Request form
-            #pragma warning disable CS8601 // Possible null reference assignment.
-            model.Login = Request.Form["Login"];
-            #pragma warning restore CS8601 // Possible null reference assignment.
-            #pragma warning disable CS8601 // Possible null reference assignment.
-            model.Password = Request.Form["Password"];
-            #pragma warning restore CS8601 // Possible null reference assignment.
-            #pragma warning disable CS8601 // Possible null reference assignment.
-            model.Email = Request.Form["Email"];
-            #pragma warning restore CS8601 // Possible null reference assignment.*/
-
-
-            /* model = new UserModel()
-             {
-                 Id = 1,
-                 FirstName = "ee",
-                 Surname = "qwer",
-                 Login = "log",
-                 Email = "email@gmail.com",
-                 Password = "123",
-                 ModelRole = new UserRoleModel() { Id = 1, Name = "Admin" },
-                 DateOfTheBirth = DateTime.Now
-             };*/
-
-            await _userService.CreateUser(model,model.Password);
-
-            return View("Index",model);
-        }
-
         public IActionResult Privacy()
         {
             return View();

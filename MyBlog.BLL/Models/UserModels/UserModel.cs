@@ -5,18 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyBlog.BLL.Models
+namespace MyBlog.BLL.Models.UserModels
 {
     public class UserModel
     {
-       // public int Id { get; set; }
+        public Guid Id { get; set; }
         public string? FirstName { get; set; }
         public string? Surname { get; set; }
-        public string Login { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-
-       // public UserRoleModel ModelRole { get; set; }
+        public string? Login { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
         public DateTime? DateOfTheBirth { get; set; }
         public string? Image { get; set; }
         public string? Status { get; set; }
@@ -30,9 +28,9 @@ namespace MyBlog.BLL.Models
 
 
     }
-   /* public class UserRoleModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }*/
+    /* public class UserRoleModel
+     {
+         public int Id { get; set; }
+         public string Name { get; set; }
+     }*/
 }

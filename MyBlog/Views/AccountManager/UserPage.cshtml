@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Titele"] = "UserPage";
+}
+@using MyBlog.Models.AccountModel;
+@model MyBlog.Models.AccountModel.MainViewModel;
+
+<link rel="stylesheet" href="~/css/userpage.css">
+<div class="mainPage">
+    <div class="profile">
+        <h1>Профиль</h1>
+        <img src="@Model.Image" alt="Аватар пользователя">
+        <img src="" alt="Аватар пользователя">
+        <p>Имя: <span>@Model.FirstName</span></p>
+        @if (Model.DateOfTheBirth != null)
+        {
+            <p>Дата рождения: <span>@Model.DateOfTheBirth.Value.ToShortDateString();</span></p>
+        }
+        <p>О себе: <span>@Model.About</span></p>
+        <form method="get" asp-controller="AccountManager" asp-action="UserEdit">
+            <input class="editUserProfileButton" type="submit" value="Редактировать профиль" />
+        </form>
+    </div>
+
+    @if(Model.Posts !=null)
+    {
+        <div class="posts">
+            <ul>
+                @foreach (var post in Model.Posts)
+                {
+                    <li>
+                        <h2> @post.Title</h2>
+                        <p>@post.Description</p>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    <form method="post" asp-controller="AccountManager" asp-action="NewArticle">
+        
+        <input class="editUserProfileButton" type="submit" value="NewArticle" />
+    </form>
+</div> 

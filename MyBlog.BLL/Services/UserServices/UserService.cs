@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MyBlog.BLL.Models;
+using MyBlog.BLL.Extensions;
+using MyBlog.BLL.Models.UserModels;
 using MyBlog.DAL.Entities;
 using MyBlog.DAL.Repository;
 using System;
@@ -21,24 +22,55 @@ namespace MyBlog.BLL.Services.UserServices
             _mapper = mapper;
         }
 
-        public async Task CreateUser(UserModel model, string password)
+        public async Task CreateUser(UserModel model)
         {
-            var user = _mapper.Map<User>(model);
-            user.Password = password;
-            
-
-           await _userRepo.CreateUser(user);
+            var user = _mapper.Map<UserEntity>(model);
+            await _userRepo.CreateUser(user);
         }
 
-        public void UpdateUser(UserModel model)
+        public async Task<UserModel> FindUserByLogin(string login)
         {
-            throw new NotImplementedException();
+            var foundedUser =  await _userRepo.FindByLogin(login);
+            var userModel = _mapper.Map<UserModel>(foundedUser);
+            return userModel;
+        }
+
+        public async Task<UserModel> FindUserById(Guid id)
+        {
+            var foundedUser = await _userRepo.FindUserById(id);
+            var userModel = _mapper.Map<UserModel>(foundedUser);
+            return userModel;
+        }
+
+        public async Task<bool> CheckByEmail(string email)
+        {
+            bool verify = await _userRepo.CheckByEmail(email);
+            return verify;
+        }
+        public async Task<bool> CheckByLogin(string login)
+        {
+            bool verify = await _userRepo.CheckByLogin(login);
+            return verify;
+        }
+
+
+        public async Task<UserModel> UpdateUser(UserModel model)
+        {
+            var foundedUser = await _userRepo.FindUserById(model.Id);
+            foundedUser.Convert(model);
+
+            await _userRepo.UpdateUser(foundedUser);
+            return model;
         }
     }
     public interface IUserService
     {
-        void UpdateUser(UserModel model);
-        Task CreateUser(UserModel model, string password);
+        Task<UserModel> UpdateUser(UserModel model);
+        Task CreateUser(UserModel model);
+        Task<UserModel> FindUserByLogin(string login);
+        Task<UserModel> FindUserById(Guid id);
+        Task<bool> CheckByEmail(string email);
+        Task<bool> CheckByLogin(string login);
     }
 
 }

@@ -1,0 +1,72 @@
+﻿@model MyBlog.Models.AccountModel.UserEditView;
+@{
+    ViewData["Title"] = "UserEdit";
+}
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
+<link rel="stylesheet" href="~/css/edirForm.css" asp-append-version="true">
+<div class="usereditform">
+    <form class="editForm" method="post" asp-controller="AccountManager" asp-action="UserEdit">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="mrgn">
+                <input asp-for="Id" class="form-control" style="display: none" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="Login">Логин</label>
+            <span asp-validation-for="Login" class="text-danger" style="color=red"></span>
+            <input asp-for="Login" type="text" class="form-control" />   
+        </div>
+        <div class="input-boxe">
+            <label for="Email">Email</label>
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Email" type="email" class="form-control" />
+        </div>
+        <div class="input-boxe">
+            <label for="FirstName">Имя</label>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+        <div class="input-boxe">
+            <label for="Surname">Фамилия</label>
+            <input asp-for="Surname" class="form-control" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="Password">Пароль</label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="DateOfTheBirth">Дата рождения</label>
+            <input asp-for="DateOfTheBirth" type="date" class="form-control" />
+            <span asp-validation-for="DateOfTheBirth" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="Image">Фотография</label>
+            <input asp-for="Image" class="form-control" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="Status">Статус</label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="Username">О себе</label>
+            <input asp-for="About" class="form-control" />
+            <span asp-validation-for="About" class="text-danger"></span>
+        </div>
+        <div class="input-boxe">
+            <label for="PhoneNumber">Телефон</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <button type="submit" class="loginbtn animation">Сохранить</button>
+    </form>
+</div>
+
+        

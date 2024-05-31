@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.DAL.Entities
 {
-    public class User
+    public class UserEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string? FirstName { get; set; }
@@ -21,6 +21,7 @@ namespace MyBlog.DAL.Entities
         public string? Status { get; set; }
         public string? About { get; set; }
         public string? PhoneNumber { get; set; }
+        public bool? RememberMe { get; set; }
 
     }
 }
