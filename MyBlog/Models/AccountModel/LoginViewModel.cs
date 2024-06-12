@@ -10,12 +10,12 @@ namespace MyBlog.Models.AccountModel
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Login", Prompt = "Введите логин")]
+        [Display(Name = "Login")]
         public string? Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль", Prompt = "Введите пароль")]
+        [Display(Name = "Пароль")]
         public string? Password { get; set; }
 
         [Display(Name = "Запомнить?")]

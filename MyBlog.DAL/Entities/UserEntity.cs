@@ -8,7 +8,7 @@ namespace MyBlog.DAL.Entities
 {
     public class UserEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
         public string? FirstName { get; set; }
         public string? Surname { get; set; }
         public string Login { get; set; }

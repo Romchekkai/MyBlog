@@ -68,6 +68,13 @@ namespace MyBlog.DAL.Repository
 
             return user;
         }
+        public async Task<UserEntity> FindByEmail(string email)
+        {
+            UserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user is null) return null;
+
+            return user;
+        }
         public async Task<UserEntity> FindByID(Guid id)
         {
             UserEntity? user = await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
@@ -95,21 +102,6 @@ namespace MyBlog.DAL.Repository
         }
 
         
-        /*  public async Task CreateArticle(UserEntity user)
-           {
-               user.RoleId = common.Id;
-
-               var findUserEmail = _context.Users.Any(e => e.Email == user.Email);
-               var findUserLogin = _context.Users.Any(u => u.Login == user.Login);
-
-               if (!findUserEmail && !findUserLogin)
-               {
-                   await _context.Users.AddAsync(user);
-                   _context.SaveChanges();
-               }
-               else { Console.WriteLine("User id {0} is exist", user.Id); return; }
-           }
-        */
 
     }
 
@@ -120,6 +112,7 @@ namespace MyBlog.DAL.Repository
         void DeleteUser(Guid id);
         Task UpdateUser(UserEntity user);
         Task<UserEntity> FindByLogin(string login);
+        Task<UserEntity> FindByEmail(string email);
         Task<UserEntity> FindByID(Guid id);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);

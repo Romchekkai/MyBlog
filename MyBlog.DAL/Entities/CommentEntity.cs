@@ -8,11 +8,12 @@ namespace MyBlog.DAL.Entities
 {
     public class CommentEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
         public string? Text { get; set; }
         public Guid UserId { get; set; }
         public UserEntity User { get; set; }
-        public Guid ArticleId { get; set; }
-        public ArticleEntity Article { get; set; }
+        public Guid? ArticleId { get; set; }
+        public ArticleEntity? Article { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

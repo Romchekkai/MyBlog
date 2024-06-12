@@ -40,6 +40,8 @@ namespace MyBlog.DAL.Repository
             if (comments != null)
                 return comments;
 
+           
+
             return null;
         }
 
@@ -55,6 +57,7 @@ namespace MyBlog.DAL.Repository
             var commentoDelete = await FindCommentById(id);
             if (commentoDelete != null)
                 _context.Comments.Remove(commentoDelete);
+            _context.SaveChanges();
         }
 
         public async Task UpdateComment(CommentEntity comment)

@@ -33,19 +33,29 @@ namespace MyBlog.Mapping
 
             //Map articleEntity, articleModel, postViewModels
 
-            CreateMap<ArticleEntity, ArticleModel>();
-            CreateMap<ArticleModel, ArticleEntity>();
+            CreateMap<ArticleEntity, ArticleModel>().ForMember(d => d.Tags, opt => opt.MapFrom(i => i.Tags)); 
+            CreateMap<ArticleModel, ArticleEntity>().ForMember(d => d.Tags,opt=>opt.MapFrom(i=>i.Tags));
 
             CreateMap<ArticleModel, PostViewModel>();
-            CreateMap<PostViewModel, ArticleModel>();   
+            CreateMap<PostViewModel, ArticleModel>();
+
+            CreateMap<ArticleModel, CreateArticleView>();
+            CreateMap<CreateArticleView, ArticleModel>();
 
             //Map commentEntity, commentModel, commentViewModels
-            CreateMap<CommentEntity,CommentModel>();
+            CreateMap<CommentEntity, CommentModel>();
             CreateMap<CommentModel, CommentEntity>();
+            CreateMap<CommentViewModel, CommentModel>();
+            CreateMap<CommentModel, CommentViewModel>();
+
 
             //Map tag
+
             CreateMap<TagEntity, TagModel>();
             CreateMap<TagModel, TagEntity>();
+
+            CreateMap<TagModel, TagViewModel>();
+            CreateMap<TagViewModel, TagModel>();
         }
     }
 }

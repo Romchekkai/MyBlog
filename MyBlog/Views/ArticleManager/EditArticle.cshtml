@@ -1,0 +1,47 @@
+﻿@model MyBlog.Models.AccountModel.PostViewModel
+<div class="posts">
+    <form asp-action="EditArticle" asp-controller="ArticleManager" asp-route-id="@Model.Id">
+        <div class="posts-header">
+            <div class="hidden" style="display=none" ></div>
+            <input type="" asp-for="UserId" />
+            <input type="" asp-for="DatePosted" />
+            <div class="post-title">
+                <label asp-for="Title">Тема статьи</label><br />
+                <input type="text" asp-for="Title" />
+            </div>
+            <div class="post-desription">
+                <label asp-for="Description">Текст</label><br />
+                <textarea asp-for="Description" placeholder="Description" rows="6" cols="30"></textarea>
+            </div>
+            <div class="save-btn">
+                <input type="submit" value="Сохранить" />
+            </div>
+        </div>
+    </form>
+    <div class="post-tag">
+        <h2>Тэги по статье </h2>
+    @foreach(var tag in Model.Tags)
+    {
+            <p> @tag.Name </p> <a id="edit_tag" asp-action="EditTag" asp-controller="ArticleManager" asp-route-id="@tag.Id">Изменить</a>
+            <form asp-controller="ArticleManager" asp-action="DeleteTag" asp-route-id="@tag.Id" method="post">
+                <button type="submit" class="save-btn">
+                    Удалить
+                </button>
+            </form>         
+    }
+    </div>
+    
+    <form asp-controller="ArticleManager" asp-action="AddTag" method="post">
+        <label asp-for="@Model.Id">Добавить тэг</label><br />
+        <input name="modelID" type="" asp-for="@Model.Id" />
+        <label asp-for="@Model.modelTag.Name">Добавить тэг</label><br />
+        <input type="text" asp-for="@Model.modelTag.Name" />
+        <button type="submit" class="save-btn">
+            Добавить
+        </button>
+    </form>
+</div>
+<a asp-area="" asp-controller="AccountManager" asp-action="UserPage">Назад</a>
+
+
+

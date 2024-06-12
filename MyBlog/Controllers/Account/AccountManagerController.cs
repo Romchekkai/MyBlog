@@ -126,52 +126,61 @@ namespace MyBlog.Controllers.Account
                     }
                 }
             }
-            var mainModel = _mapper.Map<MainViewModel>(user);
+           
 
-            return View("UserPage", mainModel);
+            return RedirectToAction("UserPage", "AccountManager");
         }
 
         [AcceptVerbs("GET", "POST")]
         public async Task<IActionResult> VerifyEmail(UserEditView model)
         {
+            bool result = false;
+            bool checkEqual = false;
             var foundUser = await _userService.CheckByEmail(model.Email);
 
-            if (foundUser)
+            var equal = await _userService.FindUserByEmail(model.Email);
+            if(equal != null)
+                checkEqual = equal.Email == model.Email;
+
+
+            if (foundUser && checkEqual)
+            {
+                result = false;
+            }
+            else
+            {       
+                result = true;
+            }
+                
+
+            if (result)
                 return Json(false);
             return Json(true);
         }
         [AcceptVerbs("GET", "POST")]
         public async Task<IActionResult> VerifyLogin(UserEditView model)
         {
+            bool result = false;
+            bool checkEqual = false;
 
             var foundUser = await _userService.CheckByLogin(model.Login);
 
-            if (foundUser)
+            var equal = await _userService.FindUserByLogin(model.Login);
+            if (equal != null)
+                checkEqual = equal.Login == model.Login;
+
+            if (foundUser && checkEqual)
+            {
+                result = false;
+            }
+            else
+            {
+                result = true;
+            }
+
+            if (result)
                 return Json(false);
             return Json(true);
-        }
-
-      /*  [HttpGet]
-        public async Task<IActionResult> NewArticle()
-        {
-
-        }*/
-
-        [HttpPost]
-        public async Task<IActionResult> NewArticle()
-        {
-            var user = User;
-
-            var usermodel = await _userService.FindUserByLogin(user.Identity?.Name);
-
-            ArticleModel model = new ArticleModel()
-            {
-                Title = "ads",
-                Description = "aaa",
-                UserId = usermodel.Id
-            };
-            await _articleService.CreateArticle(model);
-            return RedirectToAction("UserPage", "AccountManager");
         }
 
         [HttpPost]

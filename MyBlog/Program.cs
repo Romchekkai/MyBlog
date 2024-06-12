@@ -45,19 +45,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-var imgFiles = new[] { "Logo.jpg", "user.png" };
-
-
-/*foreach (var file in imgFiles)
-{
-    app.MapGet($"/images/{file}", async context =>
-    {
-        var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "images", file);
-        var img = await File.ReadAllBytesAsync(imgPath);
-        await context.Response.Body.WriteAsync(img);
-    });
-}*/
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

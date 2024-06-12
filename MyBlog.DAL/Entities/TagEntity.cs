@@ -12,5 +12,6 @@ namespace MyBlog.DAL.Entities
         public string Name { get; set; }
         public Guid ArticleId { get; set; }
         public ArticleEntity Article { get; set; }
+        
     }
 }

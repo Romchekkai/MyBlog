@@ -46,7 +46,7 @@ namespace MyBlog.DAL.Repository
 
         public async Task<ArticleEntity> FindArticleById(Guid id)
         {
-            var article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            var article = await _context.Articles.Include(p => p.Comments).Include(t => t.Tags).FirstOrDefaultAsync(a => a.Id == id);
             if (article != null) return article;
             return null;
         }
@@ -56,14 +56,53 @@ namespace MyBlog.DAL.Repository
             var articletoDelete = await FindArticleById(id);
             if (articletoDelete != null)
                 _context.Articles.Remove(articletoDelete);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateArticle(ArticleEntity article)
+        public void UpdateArticle(ArticleEntity article)
         {
-            var articleToUpdate = await FindArticleById(article.Id);
-            if (articleToUpdate != null)
-                _context.Update(articleToUpdate);
+            
+            if (article != null)
+                _context.Update(article);
             _context.SaveChanges();
+        }
+
+        public async Task AddTags(List<TagEntity> tags)
+        {
+            if (tags != null)
+                foreach(TagEntity tag  in tags)
+                {
+                    await _context.AddAsync(tag);
+                    _context.SaveChanges();
+                }
+        }
+        public async Task AddTag(TagEntity tag)
+        {
+            if (tag != null)
+                    await _context.AddAsync(tag);
+                    _context.SaveChanges();
+        }
+
+        public async Task<TagEntity> FindTagById(int id)
+        {
+            var tag = await _context.Tags.FirstOrDefaultAsync(a => a.Id == id);
+            if (tag != null) return tag;
+            return null;
+        }
+
+        public void UpdateTag(TagEntity tag)
+        {
+            if (tag != null)
+                _context.Update(tag);
+            _context.SaveChanges();
+        }
+
+        public async Task DeleteTagById(int id)
+        {
+            var tagtoDelete = await FindTagById(id);
+            if (tagtoDelete != null)
+                _context.Tags.Remove(tagtoDelete);
+            await _context.SaveChangesAsync();
         }
 
     }
@@ -75,6 +114,11 @@ namespace MyBlog.DAL.Repository
         Task<IEnumerable<ArticleEntity>> FindArticlesByUserId(Guid id);
         Task<ArticleEntity> FindArticleById(Guid id);
         Task DeleteArticleById(Guid id);
-        Task UpdateArticle(ArticleEntity article);
+        void UpdateArticle(ArticleEntity article);
+        Task AddTags(List<TagEntity> tags);
+        Task<TagEntity> FindTagById(int id);
+        void UpdateTag(TagEntity tag);
+        Task DeleteTagById(int id);
+        Task AddTag(TagEntity tag);
     }
 }

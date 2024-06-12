@@ -51,3 +51,143 @@
     .button-delete:hover, .button-delete:focus {
         background: #e2e2f2; /* Эффект при наведении — дополнительное оформление */
     }
+
+.partialPost{
+    display:none;
+    z-index: 2;
+    position: absolute;
+    width: 400px;
+    height: 450px;
+    border: 2px solid #7C8685;
+    overflow: hidden;
+    background-color: #d1b682;
+    left: 30%;
+    bottom:300px
+}
+
+
+    .partialPost .form-box {
+        position: absolute;
+        bottom: 70px;
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+.form-box .input-area {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 0 60px 30px 70px;
+}
+.input-area input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #050507;
+    padding-right: 23px;
+    font-size: 16px;
+    color: #050507;
+    font-weight: 500;
+    transition: .5s;
+}
+.input-area label {
+    position: absolute;
+    bottom: 80%;
+    left: 20%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+    transition: .5s;
+}
+.input-area textarea {
+    resize: none;
+    height: 150px;
+    background: transparent;
+    border: 2px thick #050507;
+}
+.loginbtn {
+    position: relative;
+    top: 50%;
+    left: 30%;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px thick #050507;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #050507;
+    z-index: 1;
+    overflow: hidden;
+}
+
+    .loginbtn::before {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 300%;
+        background: linear-gradient(#7C8685,#AAACA1,#7C8685);
+        z-index: -1;
+        transition: .5s;
+    }
+
+    .loginbtn:hover::before {
+        top: 0;
+    }
+
+.form-box .back-button {
+    position:absolute;
+    top: 92%;
+    font-size: 14px;
+    color: #050507;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.back-button a {
+    color: #7C8685;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-button  a:hover {
+    text-decoration: underline;
+}
+
+.tag-form{
+    position: relative;
+    left: 55%;
+    bottom: 10%;
+}
+.tag-form label{
+    display: block;
+}
+    .tag-form input {
+        width: 50%;
+        background: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #050507;
+    }
+
+.createArticlebtn {
+    background-color: rgba(54, 46, 45,0.4);
+    color: #570202;
+    margin: 8px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.createArticlelink {
+    text-decoration: none;
+    color: inherit;
+}

@@ -9,7 +9,6 @@
     <div class="profile">
         <h1>Профиль</h1>
         <img src="@Model.Image" alt="Аватар пользователя">
-        <img src="" alt="Аватар пользователя">
         <p>Имя: <span>@Model.FirstName</span></p>
         @if (Model.DateOfTheBirth != null)
         {
@@ -19,8 +18,10 @@
         <form method="get" asp-controller="AccountManager" asp-action="UserEdit">
             <input class="editUserProfileButton" type="submit" value="Редактировать профиль" />
         </form>
+        <div class="createArticlebtn">
+            <a href="#" class="createArticlelink" id="createArticlebtn">Создать статью</a>
+        </div>
     </div>
-
     @if(Model.Posts !=null)
     {
         <div class="posts">
@@ -30,13 +31,49 @@
                     <li>
                         <h2> @post.Title</h2>
                         <p>@post.Description</p>
+                        <p>@post.DatePosted.ToString("yyyy-MM-dd")</p>
+                        <a id="edit_article" asp-action="EditArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Изменить</a>
+                        <form asp-controller="ArticleManager" asp-action="DeleteArticle" asp-route-id="@post.Id" method="post">
+                            <button type="submit" class="delete_article">
+                                Удалить статью
+                            </button>
+                        </form>
+                        <a id="open_article" asp-action="OpenArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Открыть статью</a>
                     </li>
+                    @if(post.Comments != null)
+                    {
+                        int i = 0;
+                        @foreach (var comment in post.Comments)
+                        {
+                            @if(i<1)
+                            {
+                                <div class="comment">
+                                    <p>@comment.Text</p>
+                                    <p><span>— @comment.Author, @comment.DatePosted.ToString("yyyy-MM-dd")</span></p>
+                                </div>
+                                i++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        
+                    }
                 }
             </ul>
         </div>
-    }
-    <form method="post" asp-controller="AccountManager" asp-action="NewArticle">
-        
-        <input class="editUserProfileButton" type="submit" value="NewArticle" />
-    </form>
-</div> 
+    } 
+    <partial name="_ArticlePartial" model="Model.Post" />
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.getElementById('createArticlebtn').addEventListener("click", function () {
+
+            document.getElementsByClassName('partialPost')[0].style.display = "block";
+        })
+
+    })
+</script>          

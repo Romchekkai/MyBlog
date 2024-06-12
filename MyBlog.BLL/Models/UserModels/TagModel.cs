@@ -10,5 +10,6 @@ namespace MyBlog.BLL.Models.UserModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Guid ArticleId { get; set; }
     }
 }

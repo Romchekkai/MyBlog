@@ -1,0 +1,35 @@
+﻿@using MyBlog.Models.AccountModel;
+@model MyBlog.Models.AccountModel.CreateArticleView;
+<link rel="stylesheet" href="~/css/posts.css" asp-append-version="true">
+<div class="partialPost"> 
+    <div class="form-box">
+        <form method="post" asp-controller="ArticleManager" asp-action="NewArticle">
+            <div class="tag-form">
+                <label for="Tag">Тэг по теме</label>
+                <span asp-validation-for="Tag" class="text-danger" style="color=red"></span>
+                <input name="tag1" type="text" />
+            </div>
+            <div class="input-area">
+                <label for="Title">Заголовок</label>
+                <span asp-validation-for="Title" class="text-danger" style="color=red"></span>
+                <input asp-for="Title" type="text" />
+            </div>
+            <div class="input-area">
+                <label for="Description">Ваша статья</label>
+                <textarea asp-for="Description" placeholder="Начните с начала" rows="6" cols="30"></textarea>
+            </div>
+            <button type="submit" class="loginbtn">Сохранить</button>
+            <a href="#" class="back-button" id="register-link">Назад</a>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelector('.back-button').addEventListener("click", function () {
+
+            document.getElementsByClassName('partialPost')[0].style.display = "none";
+        })
+
+    })  
+</script>

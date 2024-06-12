@@ -13,8 +13,9 @@ namespace MyBlog.BLL.Models.UserModels
         public string? Title { get; set; }
         public string? Description { get; set; }
         public Guid UserId { get; set; }
-        public List<TagEntity>? Tags { get; set; } = new();
+        public string Tag { get; set; }
+        public List<TagModel> Tags { get; set; } 
         public DateTime? DatePosted { get; set; }
-        public List<CommentEntity>? Comments { get; set; } = new();
+        public List<CommentModel>? Comments { get; set; } = new();
     }
 }

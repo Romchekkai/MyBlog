@@ -41,6 +41,13 @@ namespace MyBlog.BLL.Services.UserServices
             var userModel = _mapper.Map<UserModel>(foundedUser);
             return userModel;
         }
+        public async Task<UserModel> FindUserByEmail(string email)
+        {
+            var foundedUser = await _userRepo.FindByEmail(email);
+            var userModel = _mapper.Map<UserModel>(foundedUser);
+            return userModel;
+        }
+
 
         public async Task<bool> CheckByEmail(string email)
         {
@@ -68,6 +75,7 @@ namespace MyBlog.BLL.Services.UserServices
         Task<UserModel> UpdateUser(UserModel model);
         Task CreateUser(UserModel model);
         Task<UserModel> FindUserByLogin(string login);
+        Task<UserModel> FindUserByEmail(string email);
         Task<UserModel> FindUserById(Guid id);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);

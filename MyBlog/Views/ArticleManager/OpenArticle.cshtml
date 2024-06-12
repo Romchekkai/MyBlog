@@ -1,0 +1,61 @@
+﻿@model MyBlog.Models.AccountModel.PostViewModel
+
+<link rel="stylesheet" href="~/css/posts.css" asp-append-version="true">
+<a asp-area="" asp-controller="AccountManager" asp-action="UserPage">Назад</a>
+<div class="posts">
+    <div class="posts-header">
+        <div class="posts-article"> <h2>"@Model.Title"</h2><p>@Model.DatePosted.ToLongDateString()</p></div>
+        <div class="posts-tag">
+            @foreach (var tag in Model.Tags)
+            {
+                <h6>@tag.Name</h6>
+            }
+        </div>
+    </div>
+    <p>@Model.Description</p>
+    <!-- кнопка редактирования? --> 
+    @if(Model.Comments != null)
+    {
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="posts-comments">
+                <div class="comments-comment">
+                    <table>
+                        <tr>
+                            <td>
+                                <p>@comment.Text</p>
+
+                            </td>
+                            <td>
+                                <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
+                                    <button type="submit" class="save-btn">
+                                        Удалить
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>— @comment.Author <time id="currentTime"> @comment.DatePosted</time></td>
+                            <td></td>
+                        </tr>
+                    </table> 
+                </div>
+            </div>
+        }
+    }
+    <div class="createCommentTable">
+        <form asp-controller="CommentManager" asp-action="CreateComment" method="post">
+            <label asp-for="@Model.Id">ИД статьи</label><br />
+            <input name="modelID" type="" asp-for="@Model.Id" />
+
+            <label asp-for="@Model.UserId">ИД Пользователя</label><br />
+            <input name="userID" type="" asp-for="@Model.UserId" />
+
+            <label asp-for="@Model.commentViewModel.Text"></label><br />
+            <input type="text" asp-for="@Model.commentViewModel.Text" />
+            <button type="submit" class="save-btn">
+                Создать комментарий
+            </button>
+        </form>
+    </div>
+</div>

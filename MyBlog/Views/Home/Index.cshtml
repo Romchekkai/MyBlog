@@ -54,7 +54,7 @@
                     @foreach (var comment in post.Comments)
                     {
                         <li>
-                            <p>@comment.Content</p>
+                            <p>@comment.Text</p>
                             <p><span>— @comment.Author, @comment.DatePosted.ToString("yyyy-MM-dd")</span></p>
                         </li>
                     }

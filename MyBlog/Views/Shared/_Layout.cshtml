@@ -46,8 +46,14 @@
                     {
                         <h5 ></h5>
                     }
-                    <h6><a asp-controller="AccountManager" asp-action="Login">Войти</a></h6>
-                    <h6><a asp-controller="AccountManager" asp-action="LogOut">Выйти</a></h6>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <h6><a asp-controller="AccountManager" asp-action="LogOut">Выйти</a></h6>
+                    }
+                    else
+                    {
+                        <h6><a asp-controller="AccountManager" asp-action="Login">Войти</a></h6>
+                    }                     
                 </div>
             </div>
         </div>

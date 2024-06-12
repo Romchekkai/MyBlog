@@ -1,0 +1,13 @@
+﻿@model MyBlog.Models.AccountModel.TagViewModel
+
+<div class="edit_tagpartial">
+    <form asp-action="EditTag" asp-controller="ArticleManager" asp-route-id="@Model.Id" method="post">
+        <input type="" asp-for="Id" />
+        <input type="" asp-for="ArticleId" />
+        <label asp-for="Name">Тэг</label>
+        <input type="text" asp-for="Name" />
+        <div class="save-btn">
+            <input type="submit" value="Сохранить" />
+        </div>
+    </form>
+</div>
