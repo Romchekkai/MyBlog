@@ -5,6 +5,7 @@
 @model MyBlog.Models.AccountModel.MainViewModel;
 
 <link rel="stylesheet" href="~/css/userpage.css">
+<link rel="stylesheet" href="~/css/userPageArticle.css">
 <div class="mainPage">
     <div class="profile">
         <h1>Профиль</h1>
@@ -24,45 +25,61 @@
     </div>
     @if(Model.Posts !=null)
     {
-        <div class="posts">
-            <ul>
-                @foreach (var post in Model.Posts)
-                {
-                    <li>
-                        <h2> @post.Title</h2>
-                        <p>@post.Description</p>
-                        <p>@post.DatePosted.ToString("yyyy-MM-dd")</p>
+        <div class="article-container">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="article-header">
+                    <h2 class="article-title">Заголовок статьи</h2>
+                    <div class="article-actions">
+                        <a id="open_article" asp-action="OpenArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Открыть</a>
                         <a id="edit_article" asp-action="EditArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Изменить</a>
                         <form asp-controller="ArticleManager" asp-action="DeleteArticle" asp-route-id="@post.Id" method="post">
-                            <button type="submit" class="delete_article">
+                            <button type="submit">
                                 Удалить статью
                             </button>
                         </form>
-                        <a id="open_article" asp-action="OpenArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Открыть статью</a>
-                    </li>
-                    @if(post.Comments != null)
+                    </div>
+                </div>
+                <div class="article-tags">
+                    @if (post.Tags != null)
+                    {
+                        foreach (var tag in post.Tags)
+                        {
+                            <span class="article-tag">@tag.Name</span>
+                        }
+                    }
+                </div>
+                <p class="article-date">Дата публикации: @post.DatePosted.ToString("yyyy-MM-dd")</p>
+                <p>
+                    @post.Description
+                </p>
+
+                <div class="article-comments">
+                    @if (post.Comments != null)
                     {
                         int i = 0;
-                        @foreach (var comment in post.Comments)
+                        @if (i < 2)
                         {
-                            @if(i<1)
-                            {
-                                <div class="comment">
-                                    <p>@comment.Text</p>
-                                    <p><span>— @comment.Author, @comment.DatePosted.ToString("yyyy-MM-dd")</span></p>
-                                </div>
-                                i++;
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            <h3>Комментарии:</h3>
+                            <div class="comment">
+                                @foreach (var comment in post.Comments)
+                                {
+                                    <p class="comment-author">@comment.Author</p>
+                                    <p class="comment-content">@comment.Text</p> <p class="comment-content">@comment.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                }
+                            </div>
+                            i++;
                         }
-                        
+                        else
+                        {
+                            break;
+                        }
                     }
-                }
-            </ul>
+                </div>
+
+            }      
         </div>
+       
     } 
     <partial name="_ArticlePartial" model="Model.Post" />
 </div>
@@ -76,4 +93,5 @@
         })
 
     })
-</script>          
+</script>
+

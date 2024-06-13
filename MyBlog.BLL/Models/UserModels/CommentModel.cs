@@ -14,5 +14,6 @@ namespace MyBlog.BLL.Models.UserModels
         public Guid UserId { get; set; }
         public Guid ArticleId { get; set; }
         public DateTime CreatedDate { get; set;}
+        public string Author { get; set; }
     }
 }

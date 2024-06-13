@@ -43,6 +43,7 @@ namespace MyBlog.Controllers.Article
             commentModel.ArticleId = guidArticle;
             commentModel.UserId = guidUser;
             commentModel.CreatedDate = DateTime.Now;
+            commentModel.Author = await GetUserName(guidUser);
 
 
             await _commentService.CreateComment(commentModel);
@@ -60,6 +61,14 @@ namespace MyBlog.Controllers.Article
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             return Redirect($"~/ArticleManager/OpenArticle/{idRoute}");
+        }
+
+        [NonAction]
+        public async Task<string> GetUserName(Guid id)
+        {
+           var user = await _userService.FindUserById(id);
+            var usrname = user.Surname + " " + user.Surname;
+            return usrname;
         }
     }
 }
