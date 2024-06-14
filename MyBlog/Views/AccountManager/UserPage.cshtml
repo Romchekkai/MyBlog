@@ -29,7 +29,7 @@
             @foreach (var post in Model.Posts)
             {
                 <div class="article-header">
-                    <h2 class="article-title">Заголовок статьи</h2>
+                    <h2 class="article-title">@post.Title</h2>
                     <div class="article-actions">
                         <a id="open_article" asp-action="OpenArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Открыть</a>
                         <a id="edit_article" asp-action="EditArticle" asp-controller="ArticleManager" asp-route-id="@post.Id">Изменить</a>
@@ -53,33 +53,31 @@
                 <p>
                     @post.Description
                 </p>
-
                 <div class="article-comments">
-                    @if (post.Comments != null)
+                    @if (post.Comments.Count() != 0)
                     {
                         int i = 0;
-                        @if (i < 2)
-                        {
-                            <h3>Комментарии:</h3>
-                            <div class="comment">
-                                @foreach (var comment in post.Comments)
+
+                        <h3>Комментарии:</h3>
+                        <div class="comment">
+                            @foreach (var comment in post.Comments)
+                            {
+                                @if (i < 2)
                                 {
-                                    <p class="comment-author">@comment.Author</p>
+                                    <p class="comment-author">@comment.User.GetFullName()</p>
                                     <p class="comment-content">@comment.Text</p> <p class="comment-content">@comment.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                    i++;
                                 }
-                            </div>
-                            i++;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        </div>
                     }
                 </div>
-
             }      
-        </div>
-       
+        </div>      
     } 
     <partial name="_ArticlePartial" model="Model.Post" />
 </div>

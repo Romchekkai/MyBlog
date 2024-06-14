@@ -27,7 +27,7 @@ namespace MyBlog.DAL.Repository
         }
         public async Task<IEnumerable<ArticleEntity>> GetAllArticles()
         {
-            var articles = await _context.Articles.Include(p => p.Comments).Include(t=>t.Tags).ToListAsync();
+            var articles = await _context.Articles.Include(p => p.Comments).ThenInclude(u=>u.User).Include(t => t.Tags).ToListAsync();
             if(articles != null)
                 return articles;
 
@@ -36,7 +36,7 @@ namespace MyBlog.DAL.Repository
 
         public async Task<IEnumerable<ArticleEntity>> FindArticlesByUserId(Guid id)
         {
-            var userArticles = await _context.Articles.Include(p => p.Comments).Include(t => t.Tags).
+            var userArticles = await _context.Articles.Include(p => p.Comments).ThenInclude(u => u.User).Include(t => t.Tags).
                 Where(a => a.UserId == id).ToListAsync();
             if (userArticles != null)
                 return userArticles;
@@ -46,7 +46,7 @@ namespace MyBlog.DAL.Repository
 
         public async Task<ArticleEntity> FindArticleById(Guid id)
         {
-            var article = await _context.Articles.Include(p => p.Comments).Include(t => t.Tags).FirstOrDefaultAsync(a => a.Id == id);
+            var article = await _context.Articles.Include(p => p.Comments).ThenInclude(u => u.User).Include(t => t.Tags).FirstOrDefaultAsync(a => a.Id == id);
             if (article != null) return article;
             return null;
         }

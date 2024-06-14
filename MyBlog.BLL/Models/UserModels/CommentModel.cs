@@ -12,6 +12,7 @@ namespace MyBlog.BLL.Models.UserModels
         public Guid Id { get; set; }
         public string Text { get; set; }
         public Guid UserId { get; set; }
+        public UserModel User { get; set; }
         public Guid ArticleId { get; set; }
         public DateTime CreatedDate { get; set;}
         public string Author { get; set; }

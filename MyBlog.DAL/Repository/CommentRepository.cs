@@ -36,7 +36,7 @@ namespace MyBlog.DAL.Repository
 
         public async Task<IEnumerable<CommentEntity>> FindCommentsByArticleId(Guid id)
         {
-            var comments = await _context.Comments.Where(i=>i.Id!=id).ToListAsync();
+            var comments = await _context.Comments.Where(i=>i.Id!=id).Include(u => u.User).ToListAsync();
             if (comments != null)
                 return comments;
 
@@ -47,7 +47,7 @@ namespace MyBlog.DAL.Repository
 
         public async Task<CommentEntity> FindCommentById(Guid id)
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(a => a.Id == id);
+            var comment = await _context.Comments.Include(u=>u.User).FirstOrDefaultAsync(a => a.Id == id);
             if (comment != null) return comment;
             return null;
         }
