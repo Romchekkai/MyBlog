@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -6,6 +7,7 @@ using MyBlog.BLL.Models.UserModels;
 using MyBlog.BLL.Services.UserServices;
 using MyBlog.Models.AccountModel;
 using System.ComponentModel.Design;
+using System.Security.Claims;
 
 namespace MyBlog.Controllers.Article
 {
@@ -43,8 +45,6 @@ namespace MyBlog.Controllers.Article
             commentModel.ArticleId = guidArticle;
             commentModel.UserId = guidUser;
             commentModel.CreatedDate = DateTime.Now;
-            commentModel.Author = await GetUserName(guidUser);
-
 
             await _commentService.CreateComment(commentModel);
 
@@ -62,6 +62,27 @@ namespace MyBlog.Controllers.Article
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             return Redirect($"~/ArticleManager/OpenArticle/{idRoute}");
         }
+
+        public async Task<IActionResult> EditComment(Guid id)
+        {
+            var commentModel = await _commentService.GetCommentById(id);
+            var commentView = _mapper.Map<CommentViewModel>(commentModel);
+
+            if (commentView != null) return View(commentView);
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public  IActionResult EditComment(CommentViewModel viewModel)
+        {
+            var model = _mapper.Map<CommentModel>(viewModel);
+
+            _commentService.UpdateComment(model);
+
+            return Redirect($"~/ArticleManager/OpenArticle/{model.ArticleId}");
+        }
+
 
         [NonAction]
         public async Task<string> GetUserName(Guid id)

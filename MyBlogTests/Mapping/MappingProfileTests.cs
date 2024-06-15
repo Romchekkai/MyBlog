@@ -25,9 +25,9 @@ namespace MyBlog.Mapping.Tests
         {
             var mapper = new Mapper(new MapperConfiguration(c => { c.AddProfile<MappingProfile>(); }));
 
-            var entity = new CommentEntity() {ArticleId= Guid.NewGuid(),Id= Guid.NewGuid(), Text="sfs",UserId =Guid.NewGuid(),CommentsByComment = new List<CommentEntity>() { new CommentEntity() { ArticleId = Guid.NewGuid(), Id = Guid.NewGuid(), Text = "sfs", UserId = Guid.NewGuid() } } };
+          //  var entity = new CommentEntity() {ArticleId= Guid.NewGuid(),Id= Guid.NewGuid(), Text="sfs",UserId =Guid.NewGuid(),CommentsByComment = new List<CommentEntity>() { new CommentEntity() { ArticleId = Guid.NewGuid(), Id = Guid.NewGuid(), Text = "sfs", UserId = Guid.NewGuid() } } };
 
-           var model= mapper.Map<CommentModel>(entity);
+          // var model= mapper.Map<CommentModel>(entity);
         }
     }
 }

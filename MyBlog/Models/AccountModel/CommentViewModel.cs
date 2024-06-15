@@ -7,7 +7,7 @@ namespace MyBlog.Models.AccountModel
     public class CommentViewModel
     {
         public Guid Id { get; set; }
-        public Guid PostId { get; set; }
+        public Guid ArticleId { get; set; }
         public Guid UserId { get; set; }
         public MainViewModel User { get; set; }
         public string Author {  get; set; }

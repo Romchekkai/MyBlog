@@ -60,13 +60,11 @@ namespace MyBlog.DAL.Repository
             _context.SaveChanges();
         }
 
-        public async Task UpdateComment(CommentEntity comment)
+        public void UpdateComment(CommentEntity comment)
         {
-            var commentToUpdate = await FindCommentById(comment.Id);
-            if (commentToUpdate != null)
-                _context.Update(commentToUpdate);
-            _context.SaveChanges();
-        }
+                _context.Update(comment);
+                _context.SaveChanges();
+        }   
 
     }
     public interface ICommentRepository
@@ -75,6 +73,6 @@ namespace MyBlog.DAL.Repository
         Task<IEnumerable<CommentEntity>> FindCommentsByArticleId(Guid id);
         Task<CommentEntity> FindCommentById(Guid id);
         Task DeleteCommentById(Guid id);
-        Task UpdateComment(CommentEntity comment);
+        public void UpdateComment(CommentEntity comment);
     }
 }

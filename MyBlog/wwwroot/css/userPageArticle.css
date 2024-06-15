@@ -61,6 +61,11 @@
     margin-top: 10px;
 }
 
+
+    .article-comments #edit-save {
+        background-color: rgba(54, 46, 45,0.5);
+        border-radius: 20px;
+    }
 .comment {
     border: 1px solid #ccc;
     padding: 10px;

@@ -13,8 +13,8 @@ namespace MyBlog.DAL.Entities
         public string? Description { get; set; }
         public Guid UserId { get; set; }
         public UserEntity User { get; set; }
-        public List<TagEntity>? Tags { get; set; } 
+        public List<TagEntity> Tags { get; set; } 
         public DateTime? DatePosted { get; set; } 
-        public List<CommentEntity>? Comments { get; set; } = new();
+        public List<CommentEntity> Comments { get; set; } = new();
     }
 }

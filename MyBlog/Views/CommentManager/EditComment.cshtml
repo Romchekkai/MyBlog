@@ -1,0 +1,16 @@
+﻿@model MyBlog.Models.AccountModel.CommentViewModel
+<link rel="stylesheet" href="~/css/articleEditForm.css" asp-append-version="true">
+<div class="tag-form">
+    <form asp-action="EditComment" asp-controller="CommentManager" asp-route-id="@Model.Id" method="post">
+        <input type="" asp-for="Id" style="display: none" />
+        <input type="" asp-for="UserId" style="display: none" />
+        <input type="" asp-for="ArticleId" style="display: none" />
+        <input type="" asp-for="CreatedDate" style="display: none" />
+
+        <label>Ваш комментарий</label>
+        <input type="text" asp-for="Text" />
+        <button type="submit" class="save-btn">
+            Сохранить
+        </button>
+    </form>
+</div>

@@ -1,0 +1,87 @@
+﻿.post-container {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    min-width: 70vh;
+    max-width: 70vh;
+
+}
+
+.post-header {
+
+    align-items: center;
+}
+
+.post-tags {
+    display: flex;
+
+}
+
+.post-tag button {
+    background-color: rgba(54, 46, 45,0.4);
+    color: #570202;
+    margin: 8px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    cursor: pointer;
+  
+}
+
+.post-tag a {
+    margin: 0 5px 0 5px;
+    text-decoration: none;
+    color: inherit;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.tag-form {
+    font-size: 16px;
+    font-weight: bold;
+}
+    .tag-form input {
+        width: 80%;
+        background: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #050507;
+    }
+    .tag-form button {
+        background-color: rgba(54, 46, 45,0.2);
+        margin: 2px;
+        box-shadow: 0 4px 8px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+.post-form {
+    max-width:70vh;
+   
+}
+
+    .post-form button {
+        background-color: rgba(54, 46, 45,0.2);
+        margin: 2px;
+        box-shadow: 0 4px 8px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+
+.post-form input {
+    min-width: 40%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #050507;
+    font: italic bold 1em, sans-serif;
+}
+
+    .post-form textarea {
+        min-height: 20vh;
+        max-height: 30vh;
+        min-width: 60%;
+        max-width: 60%;
+        background: transparent;
+        border: 2px solid groove;
+    }

@@ -47,6 +47,12 @@ namespace MyBlog.BLL.Services.UserServices
             catch (Exception ex) { Console.WriteLine(ex); }
             return null;
         }
+
+        public void UpdateComment(CommentModel model)
+        {
+            var entity = _mapper.Map<CommentEntity>(model);
+            _commentRepository.UpdateComment(entity);
+        }
     }
     public interface ICommentService
     {
@@ -54,6 +60,7 @@ namespace MyBlog.BLL.Services.UserServices
         Task<IEnumerable<CommentModel>> GetCommentsByArticleId(Guid id);
         Task DeleteCommentById(Guid id);
         Task<CommentModel> GetCommentById(Guid id);
+        public void UpdateComment(CommentModel model);
 
     }
 }
