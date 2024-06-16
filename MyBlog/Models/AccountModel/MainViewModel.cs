@@ -1,4 +1,6 @@
-﻿namespace MyBlog.Models.AccountModel
+﻿using MyBlog.DAL.Entities;
+
+namespace MyBlog.Models.AccountModel
 {
     public class MainViewModel
     {
@@ -12,7 +14,7 @@
         public string? Email { get; set; }
         public string? Password { get; set; }
 
-        // public UserRoleModel ModelRole { get; set; }
+        public UserRoleView Role { get; set; }
         public DateTime? DateOfTheBirth { get; set; }
         public string? Image { get; set; }
         public string? Status { get; set; }

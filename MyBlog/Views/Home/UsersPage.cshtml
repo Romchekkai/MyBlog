@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MyBlog.Models.AccountModel.MainViewModel>;
+
+<a asp-area="" asp-controller="Home" asp-action="Index">Вернуться</a>
+<div class="users-container" style="display:flex"> 
+        @foreach(var user in Model)
+    {
+        <div class="user-container" style="border:2px solid">
+            <p class="user-name">@user.GetFullName()</p>
+            <p class="user-role">Роль: @user.Role.Name</p>
+            <p class="user-email">E-mail: @user.Email</p>
+            <div>
+                <a asp-area="" asp-controller="AccountManager" asp-action="EditUserRole" 
+                asp-route-id="@user.Id">Изменить роль</a>
+            </div>
+        </div>
+    }
+</div>
+
+

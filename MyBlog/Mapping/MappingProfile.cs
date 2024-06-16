@@ -56,7 +56,13 @@ namespace MyBlog.Mapping
 
             CreateMap<TagModel, TagViewModel>();
             CreateMap<TagViewModel, TagModel>();
+
+
+            //Map Role
+
+            CreateMap<UserRole, UserRoleModel>().ReverseMap();
+            CreateMap<UserRoleModel, UserRoleView>().ReverseMap();
+
         }
     }
 }
-//ForMember(m=>m.ModelRole, opt=>opt.MapFrom(scr=>scr.Role));

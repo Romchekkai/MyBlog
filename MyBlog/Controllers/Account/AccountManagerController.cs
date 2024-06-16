@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyBlog.BLL.Models.UserModels;
 using MyBlog.BLL.Services.UserServices;
 using MyBlog.DAL.Entities;
@@ -48,12 +49,14 @@ namespace MyBlog.Controllers.Account
 
             var user = await _userService.FindUserByLogin(login);
             if (user is null)
-                return (IActionResult)Results.Unauthorized();
+                return Redirect("/Home/UnexpectedError");
             if(user.Login != login || user.Password != password)
-                return (IActionResult)Results.Unauthorized();
+                return Redirect("/Home/UnexpectedError");
 
             //аутентификация с помощью Cookies
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Login), new Claim(ClaimTypes.Email, user.Email) }; 
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Login), 
+                new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name )}; 
 
             ClaimsIdentity identity = new ClaimsIdentity(claims, "Cookies");
 
@@ -68,6 +71,7 @@ namespace MyBlog.Controllers.Account
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         public async Task<IActionResult> UserPage()
         {
             var user = User;
@@ -183,76 +187,26 @@ namespace MyBlog.Controllers.Account
             return Json(true);
         }
 
+       [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUserRole(Guid id)
+        {
+            var user = await _userService.FindUserById(id);
+            var userRoleName = user.Role.Name;
+            var username = user.GetFullName();
+
+            // var viewmodel = new RoleEditView(id,userRoleName, username);
+            var viewmodel = new RoleEditView() { UserId = id, RoleName = userRoleName, UserName = username };
+            return View(viewmodel);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
+        public async Task<IActionResult> EditUserRole(RoleEditView view)
+        { 
 
-        // GET: UserController/Details/5
-        [Authorize]
-        public ActionResult Details()
-        {
-            return Content("Hello World!");
+            await _userService.ChangeRole(view.Id, view.UserId);
+
+            return RedirectToAction("EditUserRole", "AccountManager",view.UserId);
         }
 
-        // GET: UserController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UserController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UserController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UserController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

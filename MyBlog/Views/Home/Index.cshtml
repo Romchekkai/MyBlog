@@ -5,69 +5,116 @@
 }
 
 <link rel="stylesheet" href="~/css/posts.css" asp-append-version="true">
-<div class="posts">
-    <div class="posts-header">
-        <div class="posts-article"> <h2>Добро пожаловать в наш блог</h2></div>
-        <div class="posts-tag"> <h6>JavaSript</h6></div>
-    </div>
-    <p>Здесь вы можете оставлять ваши взгляды на программирование по разным направлениям</p>
-    <div class="posts-comments">
-        <div class="comments-comment">
-            <table>
-                <tr>
-                    <td>
-                        <p>А также оставлять свои комментарии</p>
-
-                    </td>
-                    <td><a class="button-delete" href="">delete</a></td>
-                </tr>
-                <tr>
-                    <td><span>— Ваш автор, <time id="currentTime"></time></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-        <form asp-controller="Blog" asp-action="CreateComment" method="post">
-            <div class="comment">
-                <div class="comments-input">
-                    <input type="hidden" name="postId" value="" />
-                    <input type="text" name="content" placeholder="Add a comment..." />
-                </div>
-                <div class="comments-button">
-                    <button type="submit">Post</button>
-                </div>
-            </div>
-        </form>
+<link rel="stylesheet" href="~/css/userPageArticle.css" asp-append-version="true">
+<div class="article-header">
+    <h2 class="article-title">Добро пожаловать в наш блог</h2>
+    <div class="article-actions">    
     </div>
 </div>
-@if(Model !=null)
-{
-    @foreach (var post in Model)
-    {
-        <div class="comments">
-            <h2>@post.Title</h2>
-            <p>@post.Description</p>
-            <p>Posted on: <span>@post.DatePosted.ToString("yyyy-MM-dd")</span></p>
-            <div class="comments">
-                <h3>Comments:</h3>
-                <ul>
-                    @foreach (var comment in post.Comments)
-                    {
-                        <li>
-                            <p>@comment.Text</p>
-                            <p><span>— @comment.Author, @comment.CreatedDate.ToString("yyyy-MM-dd")</span></p>
-                        </li>
-                    }
-                </ul>
-                <form asp-controller="Blog" asp-action="CreateComment" method="post">
-                    <input type="hidden" name="postId" value="@post.Id" />
-                    <input type="text" name="author" placeholder="Your name" />
-                    <input type="text" name="content" placeholder="Add a comment..." />
-                    <button type="submit">Post</button>
-                </form>
-            </div>
+<div class="article-tags">
+            <span class="article-tag">Введение</span>
+</div>
+<p class="article-date">Дата публикации: <time id="currentTime"></time></p>
+<p>
+    Здесь вы можете оставлять ваши взгляды на программирование по разным направлениям
+</p>
+<div class="article-comments">
+    <h3>А также оставлять свои комментарии</h3>
+    <div class="comment">
+        <p class="comment-author">Ваш автор</p>
+        <p class="comment-content"> Всем привет</p> <p class="comment-content">@DateTime.Now.ToLongDateString()</p>
+        <div class="article-actions">
         </div>
-    }
+    </div>
+</div>  
+@if (Model is not null)
+{
+    <div class="article-container">
+        @foreach(var article in Model)
+        {
+            <div class="article-header">
+                <h2 class="article-title">@article.Title</h2>
+                <div class="article-actions">
+                    <a id="open_article" asp-action="OpenArticle" asp-controller="ArticleManager" asp-route-id="@article.Id">Открыть</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a id="edit_article" asp-action="EditArticle" asp-controller="ArticleManager" asp-route-id="@article.Id">Изменить</a>
+                    }
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                    {
+                        <form asp-controller="ArticleManager" asp-action="DeleteArticle" asp-route-id="@article.Id" method="post">
+                            <button type="submit">
+                                Удалить статью
+                            </button>
+                        </form>
+                    }                  
+                </div>
+            </div>
+            <div class="article-tags">
+                @if (article.Tags != null)
+                {
+                    foreach (var tag in article.Tags)
+                    {
+                        <span class="article-tag">@tag.Name</span>
+                    }
+                }
+            </div>
+            <p class="article-date">Дата публикации: @article.DatePosted.ToString("yyyy-MM-dd")</p>
+            <p>
+                @article.Description
+            </p>
+            <div class="article-comments">
+                @if (article.Comments.Count() != 0)
+                {
+                    int i = 0;
+
+                    <h3>Комментарии:</h3>
+                    <div class="comment">
+                        @foreach (var comment in article.Comments)
+                        {
+                            @if (i < 2)
+                            {
+                                <p class="comment-author">@comment.User.GetFullName()</p>
+                                <p class="comment-content">@comment.Text</p> <p class="comment-content">@comment.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                <div class="article-actions">
+                                    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                                    {
+                                        <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
+                                            <button type="submit" class="save-btn">
+                                                Удалить
+                                            </button>
+                                        </form>
+                                        <a asp-controller="CommentManager" asp-action="EditComment" asp-route-id="@comment.Id" id="edit-save" method="post">Редактировать</a>
+                                    }   
+                                </div>
+                                i++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    </div>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="createCommentTable">
+                        <form asp-controller="Home" asp-action="CreateComment" method="post">
+                            <input name="modelID" type="" asp-for="@article.Id" style="display: none" />
+                            <input name="userID" type="" asp-for="@article.UserId" style="display: none" />
+
+                            <label>Поле ввода комментария</label><br />
+                            <input type="text" name="Text" asp-for="@article.commentViewModel.Text" />
+                            <button type="submit" class="save-btn">
+                                Создать
+                            </button>
+                        </form>
+                    </div>
+                } 
+            </div>
+        }
+    </div>
 }
 
 <script>
@@ -77,24 +124,4 @@
         timeElement.textContent = currentTime.toLocaleTimeString();
     }, 1000);
 </script>
-
-<!-- <div class="post">
-    <h2>Добро пожаловать в наш блог</h2>
-    <p>Здесь вы можете оставлять ваши взгляды на программирование по разным направлениям</p>
-    <div class="postsTag"> JavaSript </div>
-    <div class="comments">
-        <h3>Comments:</h3>
-        <ul>
-          <li>
-              <p>А также оставлять свои комментарии</p>
-                <p><span>— Ваш автор, <time id="currentTime"></time></span></p>
-          </li>
-        </ul>
-        <form asp-controller="Blog" asp-action="CreateComment" method="post">
-            <input type="hidden" name="postId" value="" />
-            <input type="text" name="author" placeholder="Your name" />
-            <input type="text" name="content" placeholder="Add a comment..." />
-            <button type="submit">Post</button>
-        </form>
-    </div>
-</div>  -->
+<!-- настроить форму возврата на прошлую страницу  -->

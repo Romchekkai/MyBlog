@@ -25,8 +25,8 @@ namespace MyBlog.Controllers.Article
             _articleService = articleService;
             _commentService = commentService;
         }
+
         
-       
         public async Task<IActionResult> CreateComment(CommentViewModel commentViewModel)
         {
             var form = HttpContext.Request.Form;

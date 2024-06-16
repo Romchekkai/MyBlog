@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyBlog.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace MyBlog.BLL.Models.UserModels
         public string? Login { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
+        public UserRoleModel Role { get; set; }
         public DateTime? DateOfTheBirth { get; set; }
         public string? Image { get; set; }
         public string? Status { get; set; }

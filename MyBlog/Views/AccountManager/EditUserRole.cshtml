@@ -1,0 +1,23 @@
+﻿@model MyBlog.Models.AccountModel.RoleEditView;
+
+<link rel="stylesheet" href="~/css/articleEditForm.css" asp-append-version="true">
+<div class="tag-form">
+    <span>@Model.UserName Роль: @Model.RoleName </span>
+    <form asp-action="EditUserRole" asp-controller="AccountManager" asp-route-id="@Model.UserId" method="post">
+        <label>Выберите роль</label>
+
+        <input type="" asp-for="UserId" style="display: none" />
+        <p><input type="radio" value="Admin"
+                   name="RoleName" asp-for="@Model.RoleName" />Администратор
+        </p>
+        <p><input type="radio" value="User"
+                   name="RoleName" asp-for="@Model.RoleName" />Пользователь
+        </p>
+        <p><input type="radio" value="Moderator"
+                   name="RoleName" asp-for="@Model.RoleName" />Модератор
+        </p>
+        <button type="submit" class="save-btn">
+            Сохранить
+        </button>
+    </form>
+</div>

@@ -41,7 +41,7 @@ namespace MyBlog.DAL.Repository
         }
         public async Task<UserEntity> FindUserById(Guid id)
         {
-           UserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+           UserEntity? user = await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.Id == id);
            if(user !=null)
            return user;
 
@@ -63,21 +63,21 @@ namespace MyBlog.DAL.Repository
         }
         public async Task<UserEntity> FindByLogin(string login)
         {
-            UserEntity? user =  await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+            UserEntity? user =  await _context.Users.Include(r=>r.Role).FirstOrDefaultAsync(u => u.Login == login);
             if(user is null) return null;
 
             return user;
         }
         public async Task<UserEntity> FindByEmail(string email)
         {
-            UserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            UserEntity? user = await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.Email == email);
             if (user is null) return null;
 
             return user;
         }
         public async Task<UserEntity> FindByID(Guid id)
         {
-            UserEntity? user = await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
+            UserEntity? user = await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(i => i.Id == id);
             if(user is null) return null;
 
             return user;
@@ -95,12 +95,27 @@ namespace MyBlog.DAL.Repository
             return check;
         }
 
-        public ICollection<UserEntity> GetAllUsers()
+        public async Task<IEnumerable<UserEntity>> GetAllUsers()
         {
-            var users = _context.Users.ToList();
+            var users = await _context.Users.Include(r=>r.Role).ToListAsync();
             return users;
         }
 
+        public async Task<IEnumerable<UserRole>> GetRoles()
+        {
+            var roles = await _context.Roles.ToListAsync();
+            return roles;
+        }
+
+        public async Task ChangeRole(int role, Guid userID)
+        {
+            var user = await FindByID(userID);
+            if(user is null) return;
+            user.RoleId = role;
+
+            _context.Update(user);
+            _context.SaveChanges();
+        }
         
 
     }
@@ -116,5 +131,8 @@ namespace MyBlog.DAL.Repository
         Task<UserEntity> FindByID(Guid id);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);
+        Task<IEnumerable<UserEntity>> GetAllUsers();
+        Task<IEnumerable<UserRole>> GetRoles();
+        Task ChangeRole(int role, Guid userID);
     }
 }

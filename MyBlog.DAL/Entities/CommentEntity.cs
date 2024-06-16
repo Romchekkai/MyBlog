@@ -15,6 +15,5 @@ namespace MyBlog.DAL.Entities
         public Guid? ArticleId { get; set; }
         public ArticleEntity? Article { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string Author { get; set; }
     }
 }

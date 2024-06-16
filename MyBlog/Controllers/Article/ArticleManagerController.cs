@@ -159,19 +159,5 @@ namespace MyBlog.Controllers.Article
             return articleModel;
         }
 
-      /* public ActionResult ReturnToPreviousPage()
-        {
-            
-
-            // Проверяем, есть ли информация об адресе предыдущей страницы в заголовках HTTP
-            if (Request.Headers.Referer != null)
-            {
-                // Используем UrlReferrer, чтобы вернуть пользователя на предыдущую страницу
-                return Redirect(Request.UrlReferrer.ToString());
-            }
-
-            // В случае, если информация об адресе предыдущей страницы отсутствует, можно выполнить другие действия, например, перенаправить на главную страницу
-            return RedirectToAction("Index", "Home");
-        }*/
     }
 }

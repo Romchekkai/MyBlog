@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.BLL.Extensions;
 using MyBlog.BLL.Models.UserModels;
 using MyBlog.DAL.Entities;
@@ -69,6 +70,28 @@ namespace MyBlog.BLL.Services.UserServices
             await _userRepo.UpdateUser(foundedUser);
             return model;
         }
+
+        public async Task<IEnumerable<UserModel>> GetAllUsers()
+        {
+            var users = await _userRepo.GetAllUsers();
+            var usersModel = _mapper.Map<IEnumerable<UserModel>>(users);
+            return usersModel;
+        }
+
+        public async Task<IEnumerable<UserRoleModel>> GetRoles()
+        {
+            var roles = await _userRepo.GetRoles();
+            var rolesModel = _mapper.Map<IEnumerable<UserRoleModel>>(roles);
+
+            return rolesModel;
+        }
+
+        public async Task ChangeRole(int role, Guid userID)
+        {
+            await _userRepo.ChangeRole(role, userID);
+        }
+
+
     }
     public interface IUserService
     {
@@ -79,6 +102,9 @@ namespace MyBlog.BLL.Services.UserServices
         Task<UserModel> FindUserById(Guid id);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);
+        Task<IEnumerable<UserModel>> GetAllUsers();
+        Task<IEnumerable<UserRoleModel>> GetRoles();
+        Task ChangeRole(int role, Guid userID);
     }
 
 }

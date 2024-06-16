@@ -34,30 +34,37 @@
                 {
                     <p class="comment-author">@comment.User.GetFullName()</p>
                     <p class="comment-content">@comment.Text</p> <p class="comment-content">@comment.CreatedDate.ToString("yyyy-MM-dd")</p>
-                    <div class="article-actions">
-                        <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
-                            <button type="submit" class="save-btn">
-                                Удалить
-                            </button>
-                        </form>
-                        <a asp-controller="CommentManager" asp-action="EditComment" asp-route-id="@comment.Id" id="edit-save" method="post">Редактировать</a>
-                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="article-actions">
+                            <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
+                                <button type="submit" class="save-btn">
+                                    Удалить
+                                </button>
+                            </form>
+                            <a asp-controller="CommentManager" asp-action="EditComment" asp-route-id="@comment.Id" id="edit-save" method="post">Редактировать</a>
+                        </div>
+                    }
                 }
             </div>
         }
         <div class="createCommentTable">
-            <form asp-controller="CommentManager" asp-action="CreateComment" method="post">
-                <input name="modelID" type="" asp-for="@Model.Id"  style="display: none"/>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="CommentManager" asp-action="CreateComment" method="post">
+                    <input name="modelID" type="" asp-for="@Model.Id" style="display: none" />
 
-                <input name="userID" type="" asp-for="@Model.UserId" style="display: none" />
+                    <input name="userID" type="" asp-for="@Model.UserId" style="display: none" />
 
-                <label>Поле ввода комментария</label><br/>
-                <input type="text" asp-for="@Model.commentViewModel.Text" />
-                <button type="submit" class="save-btn">
-                    Создать 
-                </button>
-            </form>
+                    <label>Поле ввода комментария</label><br />
+                    <input type="text" asp-for="@Model.commentViewModel.Text" />
+                    <button type="submit" class="save-btn">
+                        Создать
+                    </button>
+                </form>
+            }
         </div>
     </div>
 </div>
-
+<!-- Добавить в claim userid для ограничения правл по редактированию элементов  -->
+      
