@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyBlog.DAL.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyBlog.Models.AccountModel
@@ -19,12 +18,10 @@ namespace MyBlog.Models.AccountModel
         [EmailAddress]
         public string Email { get; set; }
 
-        //[Required]
-        //[DataType(DataType.Password)]
         public string Password { get; set; }
-        public DateTime? DateOfTheBirth { get; set; }
+        public DateTime DateOfTheBirth { get; set; }
         public string? Image { get; set; }
-        public string? Status { get; set; }
+        public string Status { get; set; }
         public string? About { get; set; }
         public string? PhoneNumber { get; set; }
     }

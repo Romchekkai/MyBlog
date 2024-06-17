@@ -235,3 +235,7 @@
 .info-text p {
     font-size: 13px;
 }
+.erroe{
+    position:absolute;
+    z-index:1000;
+}

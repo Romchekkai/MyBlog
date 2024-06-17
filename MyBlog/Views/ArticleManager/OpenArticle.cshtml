@@ -34,7 +34,7 @@
                 {
                     <p class="comment-author">@comment.User.GetFullName()</p>
                     <p class="comment-content">@comment.Text</p> <p class="comment-content">@comment.CreatedDate.ToString("yyyy-MM-dd")</p>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity!.IsAuthenticated)
                     {
                         <div class="article-actions">
                             <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
@@ -49,7 +49,7 @@
             </div>
         }
         <div class="createCommentTable">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity!.IsAuthenticated)
             {
                 <form asp-controller="CommentManager" asp-action="CreateComment" method="post">
                     <input name="modelID" type="" asp-for="@Model.Id" style="display: none" />
@@ -57,6 +57,7 @@
                     <input name="userID" type="" asp-for="@Model.UserId" style="display: none" />
 
                     <label>Поле ввода комментария</label><br />
+                    <span asp-validation-for="@Model.commentViewModel.Text" class="text-danger"></span>
                     <input type="text" asp-for="@Model.commentViewModel.Text" />
                     <button type="submit" class="save-btn">
                         Создать
@@ -66,5 +67,8 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
 <!-- Добавить в claim userid для ограничения правл по редактированию элементов  -->
       

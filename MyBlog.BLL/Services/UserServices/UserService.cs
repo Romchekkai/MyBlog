@@ -60,6 +60,11 @@ namespace MyBlog.BLL.Services.UserServices
             bool verify = await _userRepo.CheckByLogin(login);
             return verify;
         }
+        public async Task<bool> CheckByPassword(string password, string login)
+        {
+            bool verify = await _userRepo.CheckByPassword(password,login);
+            return verify;
+        }
 
 
         public async Task<UserModel> UpdateUser(UserModel model)
@@ -102,6 +107,7 @@ namespace MyBlog.BLL.Services.UserServices
         Task<UserModel> FindUserById(Guid id);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);
+        Task<bool> CheckByPassword(string password, string login);
         Task<IEnumerable<UserModel>> GetAllUsers();
         Task<IEnumerable<UserRoleModel>> GetRoles();
         Task ChangeRole(int role, Guid userID);

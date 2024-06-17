@@ -1,4 +1,5 @@
 ﻿using MyBlog.DAL.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace MyBlog.Models.AccountModel
@@ -10,7 +11,6 @@ namespace MyBlog.Models.AccountModel
         public Guid UserId { get; set; }
 
         public string UserName { get; set; }
-
         public string RoleName
         {
             get { return roleName; }

@@ -8,10 +8,13 @@
             <p class="user-name">@user.GetFullName()</p>
             <p class="user-role">Роль: @user.Role.Name</p>
             <p class="user-email">E-mail: @user.Email</p>
-            <div>
-                <a asp-area="" asp-controller="AccountManager" asp-action="EditUserRole" 
-                asp-route-id="@user.Id">Изменить роль</a>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div>
+                    <a asp-area="" asp-controller="AccountManager" asp-action="EditUserRole"
+                       asp-route-id="@user.Id">Изменить роль</a>
+                </div>
+            }    
         </div>
     }
 </div>

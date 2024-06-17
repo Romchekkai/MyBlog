@@ -94,7 +94,15 @@ namespace MyBlog.DAL.Repository
             bool check = await _context.Users.AnyAsync(l => l.Login == login);
             return check;
         }
+        public async Task<bool> CheckByPassword(string password, string login)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(l => l.Login == login);
+            if (user is null) return false;
+            bool check = password == user.Password;
 
+            return check;
+        }
+        
         public async Task<IEnumerable<UserEntity>> GetAllUsers()
         {
             var users = await _context.Users.Include(r=>r.Role).ToListAsync();
@@ -128,6 +136,7 @@ namespace MyBlog.DAL.Repository
         Task UpdateUser(UserEntity user);
         Task<UserEntity> FindByLogin(string login);
         Task<UserEntity> FindByEmail(string email);
+        Task<bool> CheckByPassword(string password, string login);
         Task<UserEntity> FindByID(Guid id);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,12 +12,14 @@ namespace MyBlog.Models.AccountModel
     {
         [Required]
         [Display(Name = "Login")]
-        public string? Login { get; set; }
+        [Remote(action: "VerifyForLogin", controller: "Register", ErrorMessage = "Логин не найден")]
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
-        public string? Password { get; set; }
+       // [Remote(action: "VerifyPassword", controller: "Register", ErrorMessage = "Пароль не совпадает")] 
+        public string Password { get; set; }
 
         [Display(Name = "Запомнить?")]
         public bool RememberMe { get; set; }

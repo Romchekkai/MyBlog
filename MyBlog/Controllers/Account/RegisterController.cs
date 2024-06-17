@@ -12,6 +12,7 @@ namespace MyBlog.Controllers.Account
 {
     public class RegisterController : Controller
     {
+        
         private readonly ILogger<HomeController> _logger;
         private IUserService _userService;
         private IMapper _mapper;
@@ -46,6 +47,27 @@ namespace MyBlog.Controllers.Account
                 return Json(false);
             return Json(true);
         }
+        public async Task<IActionResult> VerifyForLogin(SignView model)
+        {
+            LoginViewModel modelInfo = model.LoginViewModel;
+
+            var foundUser = await _userService.CheckByLogin(modelInfo.Login);
+            if (!foundUser)
+                return Json(false);
+            return Json(true);
+        }
+        /*public async Task<IActionResult> VerifyPassword(SignView model)
+        {
+            LoginViewModel modelInfo = model.LoginViewModel;
+
+            var loginprev = LoginUserCheck;
+
+            var foundUser = await _userService.CheckByPassword(modelInfo.Password, loginprev);
+
+            if (!foundUser)
+                return Json(false);
+            return Json(true);
+        }*/
 
         [HttpPost]
         public async Task<IActionResult> Register(SignView model)

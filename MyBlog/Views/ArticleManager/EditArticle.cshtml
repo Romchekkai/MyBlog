@@ -1,5 +1,6 @@
 ﻿@model MyBlog.Models.AccountModel.PostViewModel
 <link rel="stylesheet" href="~/css/articleEditForm.css" asp-append-version="true">
+
 <div class="post-container">
     <div class="post-header">
         <h5>Тэги по статье </h5>
@@ -22,6 +23,7 @@
                 <form asp-controller="ArticleManager" asp-action="AddTag" method="post">                 
                     <input name="modelID" type="" asp-for="@Model.Id" style="display: none" />
                     <label asp-for="@Model.modelTag.Name">Добавить тэг</label><br />
+                    <span asp-validation-for="@Model.modelTag.Name" class="text-danger"></span>
                     <input type="text" asp-for="@Model.modelTag.Name" />
                     <button type="submit" class="save-btn">
                         Добавить
@@ -38,10 +40,12 @@
             </div>
             <div class="post-title">
                 <label asp-for="Title">Тема статьи</label><br />
+                <span asp-validation-for="Title" class="text-danger"></span>
                 <input type="text" asp-for="Title" />
             </div>
             <div class="post-desription">
                 <label asp-for="Description">Текст</label><br />
+                <span asp-validation-for="Description" class="text-danger"></span>
                 <textarea asp-for="Description" placeholder="Description" rows="6" cols="30"></textarea>
             </div>
             <button type="submit" class="save-btn">
@@ -51,6 +55,8 @@
     </div>      
 </div>
 <a asp-area="" asp-controller="AccountManager" asp-action="UserPage">Назад</a>
-
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
 
 

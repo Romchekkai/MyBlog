@@ -75,18 +75,23 @@ namespace MyBlog.Controllers.Account
         public async Task<IActionResult> UserPage()
         {
             var user = User;
-            if (User.Identity.IsAuthenticated)
+            try
             {
-                var userModel = await _userService.FindUserByLogin(user.Identity.Name);
-                var mainModel = _mapper.Map<MainViewModel>(userModel);
+                if (User.Identity!.IsAuthenticated)
+                {
+                    var userModel = await _userService.FindUserByLogin(user.Identity!.Name!);
+                    var mainModel = _mapper.Map<MainViewModel>(userModel);
 
-                var articleModels = await _articleService.GetUserArticles(mainModel.Id);
-                var userArticles = _mapper.Map<IEnumerable<PostViewModel>>(articleModels);
+                    var articleModels = await _articleService.GetUserArticles(mainModel.Id);
+                    var userArticles = _mapper.Map<IEnumerable<PostViewModel>>(articleModels);
 
-                mainModel.Posts = userArticles;
+                    mainModel.Posts = userArticles;
 
-                return View("UserPage", mainModel);
+                    return View("UserPage", mainModel);
+                }
             }
+            catch (Exception ex) { Console.WriteLine(ex); }
+            
 
             return RedirectToAction("Login", "AccountManager"); 
         }
@@ -95,7 +100,7 @@ namespace MyBlog.Controllers.Account
         {
             var user = User;
 
-            var usermodel = await _userService.FindUserByLogin(user.Identity?.Name);
+            var usermodel = await _userService.FindUserByLogin(user.Identity!.Name!);
 
             var editModel = _mapper.Map<UserEditView>(usermodel);
 

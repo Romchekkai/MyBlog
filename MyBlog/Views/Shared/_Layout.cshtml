@@ -31,16 +31,16 @@
             <div class="header__item autorhise_menu">
                 @if (User.FindFirst("userPhoto") != null)
                 {
-                    <img class="userPhoto" src="@User.FindFirst("userPhoto").Value" alt="">
+                    <img class="userPhoto" src="@User.FindFirst("userPhoto")!.Value" alt="">
                 }
                 else
                 {
                     <img class="userPhoto" src="~/img/user.png" alt="">
                 }
                 <div class="userData">
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity!.IsAuthenticated)
                     {
-                        <h5>@User.FindFirst(ClaimTypes.Email).Value</h5>
+                        <h5>@User.FindFirst(ClaimTypes.Email)!.Value</h5>
                     }
                     else
                     {
