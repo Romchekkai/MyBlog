@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MyBlog.BLL.Models.UserModels;
 using MyBlog.BLL.Services.UserServices;
+using MyBlog.Controllers.Account;
 using MyBlog.Models.AccountModel;
 using System.ComponentModel.Design;
 using System.Security.Claims;
@@ -15,18 +16,18 @@ namespace MyBlog.Controllers.Article
     {
         private IUserService _userService;
         private IMapper _mapper;
-        private IArticleService _articleService;
         private ICommentService _commentService;
+        private readonly ILogger<CommentManagerController> _logger;
 
-        public CommentManagerController(IUserService userService, IMapper mapper, IArticleService articleService, ICommentService commentService)
+        public CommentManagerController(IUserService userService, IMapper mapper, 
+            ICommentService commentService, ILogger<CommentManagerController> logger)
         {
             _userService = userService;
             _mapper = mapper;
-            _articleService = articleService;
             _commentService = commentService;
+            _logger = logger;
         }
-
-        
+       
         public async Task<IActionResult> CreateComment(CommentViewModel commentViewModel)
         {
             var form = HttpContext.Request.Form;
@@ -46,8 +47,15 @@ namespace MyBlog.Controllers.Article
             commentModel.UserId = guidUser;
             commentModel.CreatedDate = DateTime.Now;
 
-            await _commentService.CreateComment(commentModel);
-
+            try
+            {
+                await _commentService.CreateComment(commentModel);
+            }
+            catch
+            {
+                _logger.LogError($"Bad request to {HttpContext.Request.Path} Time:{DateTime.UtcNow.ToLongTimeString()}");          
+            }
+           
             return Redirect($"~/ArticleManager/OpenArticle/{guidArticle}");
         }
 

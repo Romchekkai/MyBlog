@@ -1,0 +1,22 @@
+2024-06-18 20:52:45.5505 Debug Message Template Auto Format enabled
+2024-06-18 20:52:45.5595 Debug Object reflection needed to resolve type: NLog.Targets.DatabaseTarget, NLog.Database
+2024-06-18 20:52:45.5595 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'Database' - Extension NLog.Database not included?
+   at NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   at NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2024-06-18 20:52:45.5763 Trace ParseRulesElement
+2024-06-18 20:52:45.5763 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'dbTarget' not found for logging rule: *.
+2024-06-18 20:52:45.5880 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.2.2526. Product version: 5.3.2+8d52d4f3fcdbd84beae3442e1fdc8125598ed81f. GlobalAssemblyCache: False
+2024-06-18 20:52:45.5880 Debug Start watching file-filter 'nlog.config' in directory: D:\MyProjects\MyBlog\MyBlog\MyBlog\bin\Debug\net8.0
+2024-06-18 20:52:45.5880 Debug --- NLog configuration dump ---
+2024-06-18 20:52:45.5880 Debug Targets:
+2024-06-18 20:52:45.5880 Debug Rules:
+2024-06-18 20:52:45.5880 Debug logNamePattern: (:All) levels: [ Trace Debug Info Warn Error Fatal ] writeTo: [ ]
+2024-06-18 20:52:45.5880 Debug --- End of NLog configuration dump ---
+2024-06-18 20:52:45.5880 Trace FindReachableObject<System.Object>:
+2024-06-18 20:52:45.5880 Trace Scanning LoggingRule 'logNamePattern: (:All) levels: [ Trace Debug Info Warn Error Fatal ] writeTo: [ ]'
+2024-06-18 20:52:45.5880 Trace  Scanning Property Targets 'System.Collections.Generic.List`1[NLog.Targets.Target]' System.Collections.Generic.IList`1[NLog.Targets.Target]
+2024-06-18 20:52:45.5959 Trace  Scanning Property ChildRules 'System.Collections.Generic.List`1[NLog.Config.LoggingRule]' System.Collections.Generic.IList`1[NLog.Config.LoggingRule]
+2024-06-18 20:52:45.5959 Trace  Scanning Property Filters 'System.Collections.Generic.List`1[NLog.Filters.Filter]' System.Collections.Generic.IList`1[NLog.Filters.Filter]
+2024-06-18 20:52:45.5959 Info Validating config: Targets=0, ConfigItems=1, FilePath=D:\MyProjects\MyBlog\MyBlog\MyBlog\bin\Debug\net8.0\nlog.config
+2024-06-18 20:52:45.5959 Info Configuration initialized.
+2024-06-18 20:52:45.5959 Debug Targets not configured for Logger: MyBlog.Program

@@ -13,11 +13,12 @@ namespace MyBlog.Controllers.Account
     public class RegisterController : Controller
     {
         
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<RegisterController> _logger;
         private IUserService _userService;
         private IMapper _mapper;
 
-        public RegisterController(ILogger<HomeController> logger, IUserService userService, IMapper mapper)
+
+        public RegisterController(ILogger<RegisterController> logger, IUserService userService, IMapper mapper)
         {
             _logger = logger;
             _userService = userService;
@@ -30,7 +31,7 @@ namespace MyBlog.Controllers.Account
         {
             RegisterViewModel modelInfo = model.RegisterViewModel;
 
-            var foundUser = await _userService.CheckByEmail(modelInfo.Email);
+            var foundUser = await _userService.CheckByEmail(modelInfo.Email!);
 
             if (foundUser)
                 return Json(false);
@@ -56,33 +57,27 @@ namespace MyBlog.Controllers.Account
                 return Json(false);
             return Json(true);
         }
-        /*public async Task<IActionResult> VerifyPassword(SignView model)
-        {
-            LoginViewModel modelInfo = model.LoginViewModel;
-
-            var loginprev = LoginUserCheck;
-
-            var foundUser = await _userService.CheckByPassword(modelInfo.Password, loginprev);
-
-            if (!foundUser)
-                return Json(false);
-            return Json(true);
-        }*/
 
         [HttpPost]
         public async Task<IActionResult> Register(SignView model)
         {
-
-            var userModel = _mapper.Map<UserModel>(model.RegisterViewModel);
-            if(userModel != null)
+            try
             {
-                await _userService.CreateUser(userModel);
+                var userModel = _mapper.Map<UserModel>(model.RegisterViewModel);
+                if (userModel != null)
+                {
+                    await _userService.CreateUser(userModel);
 
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, userModel.Login), new Claim(ClaimTypes.Email, userModel.Email)};
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, userModel.Login), new Claim(ClaimTypes.Email, userModel.Email) };
 
-                ClaimsIdentity identity = new ClaimsIdentity(claims, "Cookies");
+                    ClaimsIdentity identity = new ClaimsIdentity(claims, "Cookies");
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                }
+            }
+            catch
+            {
+                _logger.LogError($"Bad request to {HttpContext.Request.Path} Time:{DateTime.UtcNow.ToLongTimeString()}");
             }
 
             return RedirectToAction("Index", "Home");

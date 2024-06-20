@@ -11,7 +11,7 @@ namespace MyBlog.Models.AccountModel
 
         [Required(ErrorMessage = "Поле Логин обязательно для заполнения")]
         [Remote(action: "VerifyLogin", controller: "AccountManager", ErrorMessage = "Логин используется")]
-        public string Login { get; set; }
+        public string? Login { get; set; }
 
         [Required(ErrorMessage = "Поле Email обязательно для заполнения")]
         [Remote(action: "VerifyEmail", controller: "AccountManager", ErrorMessage = "Email уже используется")]

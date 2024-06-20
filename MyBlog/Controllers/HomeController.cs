@@ -19,24 +19,36 @@ namespace MyBlog.Controllers
         private IArticleService _articleService;
         private ICommentService _commentService;
         private IMapper _mapper;
+        
 
         public HomeController(ILogger<HomeController> logger, 
             IUserService userservice, IMapper mapper, 
-            IArticleService articleService, ICommentService commentService)
+            IArticleService articleService, 
+            ICommentService commentService)
         {
             _logger = logger;
             _userService = userservice;
             _mapper = mapper;
             _articleService = articleService;
             _commentService = commentService;
+
         }
 
         public async Task<IActionResult> Index()// вхродящий параметр
         {
-            var user = User;
-            var posts = await _articleService.GetArticles();
-            var postModels = _mapper.Map<IEnumerable<PostViewModel>>(posts);
-            return View(postModels);
+            try
+            {
+                var posts = await _articleService.GetArticles();
+                var postModels = _mapper.Map<IEnumerable<PostViewModel>>(posts);
+                return View(postModels);
+            }
+            catch
+            {
+                _logger.LogError($"Bad request to {HttpContext.Request.Path} Time:{DateTime.UtcNow.ToLongTimeString()}");
+                return RedirectToAction("UnexpectedError", "Home"); 
+            }
+            
+           
         }
 
         public IActionResult Privacy()
@@ -52,34 +64,54 @@ namespace MyBlog.Controllers
 
         public async Task<IActionResult> UsersPage()
         {
-            var usersModel = await _userService.GetAllUsers();
-            var usersView = _mapper.Map<IEnumerable<MainViewModel>>(usersModel);
-
-            return View(usersView);
+            try
+            {
+                var usersModel = await _userService.GetAllUsers();
+                var usersView = _mapper.Map<IEnumerable<MainViewModel>>(usersModel);
+                return View(usersView);
+            }
+            catch
+            {
+                _logger.LogError($"Bad request to {HttpContext.Request.Path} Time:{DateTime.UtcNow.ToLongTimeString()}");
+                return RedirectToAction("UnexpectedError", "Home");
+            }
+            
         }
 
         public async Task<IActionResult> CreateComment(CommentViewModel model)
         {
-            var form = HttpContext.Request.Form;
-            var ArticleID = form["modelID"];
-            var UserID = form["userID"];
 
-            Guid guidArticle = new Guid();
-            Guid guidUser = new Guid();
+            try
+            {
+                var form = HttpContext.Request.Form;
+                var ArticleID = form["modelID"];
+                var UserID = form["userID"];
 
-            if (!ArticleID.IsNullOrEmpty())
-                guidArticle = new Guid($"{ArticleID}");
-            if (!UserID.IsNullOrEmpty())
-                guidUser = new Guid($"{UserID}");
+                Guid guidArticle = new Guid();
+                Guid guidUser = new Guid();
 
-            var commentModel = _mapper.Map<CommentModel>(model);
-            commentModel.ArticleId = guidArticle;
-            commentModel.UserId = guidUser;
-            commentModel.CreatedDate = DateTime.Now;
+                if (!ArticleID.IsNullOrEmpty())
+                    guidArticle = new Guid($"{ArticleID}");
+                if (!UserID.IsNullOrEmpty())
+                    guidUser = new Guid($"{UserID}");
 
-            await _commentService.CreateComment(commentModel);
+                var commentModel = _mapper.Map<CommentModel>(model);
+                commentModel.ArticleId = guidArticle;
+                commentModel.UserId = guidUser;
+                commentModel.CreatedDate = DateTime.Now;
 
-            return RedirectToAction("Index");
+                await _commentService.CreateComment(commentModel);
+
+               // _logger.LogInformation("Comment has created ");
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                _logger.LogError($"Bad request to {HttpContext.Request.Path} Time:{DateTime.UtcNow.ToLongTimeString()}");
+                return RedirectToAction("UnexpectedError", "Home");
+            }
+            
         }
 
         public IActionResult AuthenticationError()
@@ -87,11 +119,11 @@ namespace MyBlog.Controllers
         public IActionResult AuthorizationError()
         { return View(); }
 
+        [Route("/Home/UnexpectedError")]
         public IActionResult UnexpectedError()
-        { return View(); }
-        
-
-
-
+        {
+            _logger.LogError("Произошла непредвиденная ошибка");
+            return View(); 
+        }     
     }
 }
