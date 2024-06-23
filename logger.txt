@@ -1927,3 +1927,421 @@ ORDER BY [a].[Id], [u].[Id], [r].[Id], [t].[Id], [t].[Id0]
 2024-06-20 20:03:21.072 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 2.5604ms
 2024-06-20 20:03:21.085 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_vs/browserLink - null null
 2024-06-20 20:03:21.092 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_vs/browserLink - 200 null text/javascript; charset=UTF-8 7.3006ms
+2024-06-22 14:09:50.599 +10:00 [INF] User profile is available. Using 'C:\Users\79249\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-22 14:09:50.730 +10:00 [INF] Now listening on: https://localhost:7015
+2024-06-22 14:09:50.731 +10:00 [INF] Now listening on: http://localhost:5021
+2024-06-22 14:09:50.732 +10:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-06-22 14:09:50.733 +10:00 [INF] Hosting environment: Development
+2024-06-22 14:09:50.733 +10:00 [INF] Content root path: D:\MyProjects\MyBlog\MyBlog\MyBlog
+2024-06-22 14:09:50.998 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/ - null null
+2024-06-22 14:09:51.035 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.HomeController.Index (MyBlog)'
+2024-06-22 14:09:51.054 +10:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller MyBlog.Controllers.HomeController (MyBlog).
+2024-06-22 14:09:51.728 +10:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:09:51.764 +10:00 [INF] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:09:51.863 +10:00 [INF] Executing action method MyBlog.Controllers.HomeController.Index (MyBlog) - Validation state: "Valid"
+2024-06-22 14:09:52.035 +10:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2024-06-22 14:09:52.079 +10:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[DatePosted], [a].[Description], [a].[Title], [a].[UserId], [u].[Id], [r].[Id], [t].[Id], [t].[ArticleId], [t].[CreatedDate], [t].[Text], [t].[UserId], [t].[Id0], [t].[About], [t].[DateOfTheBirth], [t].[Email], [t].[FirstName], [t].[Image], [t].[Login], [t].[Password], [t].[PhoneNumber], [t].[RememberMe], [t].[RoleId], [t].[Status], [t].[Surname], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Name], [t0].[Id], [t0].[ArticleId], [t0].[Name]
+FROM [Articles] AS [a]
+INNER JOIN [Users] AS [u] ON [a].[UserId] = [u].[Id]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+LEFT JOIN (
+    SELECT [c].[Id], [c].[ArticleId], [c].[CreatedDate], [c].[Text], [c].[UserId], [u0].[Id] AS [Id0], [u0].[About], [u0].[DateOfTheBirth], [u0].[Email], [u0].[FirstName], [u0].[Image], [u0].[Login], [u0].[Password], [u0].[PhoneNumber], [u0].[RememberMe], [u0].[RoleId], [u0].[Status], [u0].[Surname]
+    FROM [Comments] AS [c]
+    INNER JOIN [Users] AS [u0] ON [c].[UserId] = [u0].[Id]
+) AS [t] ON [a].[Id] = [t].[ArticleId]
+LEFT JOIN [Tags] AS [t0] ON [a].[Id] = [t0].[ArticleId]
+ORDER BY [a].[Id], [u].[Id], [r].[Id], [t].[Id], [t].[Id0]
+2024-06-22 14:09:52.167 +10:00 [INF] Executed action method MyBlog.Controllers.HomeController.Index (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 301.255ms.
+2024-06-22 14:09:52.173 +10:00 [INF] Executing ViewResult, running view Index.
+2024-06-22 14:09:52.265 +10:00 [INF] Executed ViewResult - view Index executed in 92.6003ms.
+2024-06-22 14:09:52.268 +10:00 [INF] Executed action MyBlog.Controllers.HomeController.Index (MyBlog) in 1212.6227ms
+2024-06-22 14:09:52.269 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.HomeController.Index (MyBlog)'
+2024-06-22 14:09:52.275 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/ - 200 null text/html; charset=utf-8 1279.7786ms
+2024-06-22 14:09:52.289 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/img/logo.png - null null
+2024-06-22 14:09:52.289 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/MyBlog.styles.css?v=H4Gpe7yDKeNP-QeMbzHLlMyb8J6fs3QSQe5h88raNZI - null null
+2024-06-22 14:09:52.290 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/img/user.png - null null
+2024-06-22 14:09:52.295 +10:00 [INF] The file /img/user.png was not modified
+2024-06-22 14:09:52.295 +10:00 [INF] The file /MyBlog.styles.css was not modified
+2024-06-22 14:09:52.295 +10:00 [INF] The file /img/logo.png was not modified
+2024-06-22 14:09:52.296 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/img/user.png - 304 null image/png 6.6198ms
+2024-06-22 14:09:52.296 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/MyBlog.styles.css?v=H4Gpe7yDKeNP-QeMbzHLlMyb8J6fs3QSQe5h88raNZI - 304 null text/css 6.9131ms
+2024-06-22 14:09:52.297 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/img/logo.png - 304 null image/png 7.4383ms
+2024-06-22 14:09:52.334 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/css/posts.css?v=C6MvX359lEhCWvNPJU7lTSuZRC1agTW5bIjhEy66nKE - null null
+2024-06-22 14:09:52.335 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/css/userPageArticle.css?v=U73vvwBVBO1h8vC2Iwemm1bPG9YXj9su_PLlOmWkyyw - null null
+2024-06-22 14:09:52.336 +10:00 [INF] The file /css/posts.css was not modified
+2024-06-22 14:09:52.339 +10:00 [INF] The file /css/userPageArticle.css was not modified
+2024-06-22 14:09:52.339 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/css/posts.css?v=C6MvX359lEhCWvNPJU7lTSuZRC1agTW5bIjhEy66nKE - 304 null text/css 5.655ms
+2024-06-22 14:09:52.340 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/css/userPageArticle.css?v=U73vvwBVBO1h8vC2Iwemm1bPG9YXj9su_PLlOmWkyyw - 304 null text/css 5.522ms
+2024-06-22 14:09:52.354 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:09:52.359 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 4.8668ms
+2024-06-22 14:10:00.032 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/AccountManager/Login - null null
+2024-06-22 14:10:00.686 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog)'
+2024-06-22 14:10:00.688 +10:00 [INF] Route matched with {action = "Login", controller = "AccountManager"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login() on controller MyBlog.Controllers.Account.AccountManagerController (MyBlog).
+2024-06-22 14:10:00.696 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:00.698 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:00.711 +10:00 [INF] Executing action method MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog) - Validation state: "Valid"
+2024-06-22 14:10:00.712 +10:00 [INF] Executed action method MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.2329ms.
+2024-06-22 14:10:00.714 +10:00 [INF] Executing ViewResult, running view Sign.
+2024-06-22 14:10:00.779 +10:00 [INF] Executed ViewResult - view Sign executed in 65.9305ms.
+2024-06-22 14:10:00.780 +10:00 [INF] Executed action MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog) in 90.8998ms
+2024-06-22 14:10:00.781 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog)'
+2024-06-22 14:10:00.782 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/AccountManager/Login - 200 null text/html; charset=utf-8 749.8815ms
+2024-06-22 14:10:00.798 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/css/reglogmenu.css?v=7wnsLP0ejQmJzNbNlWgqBq8V6il6ezAVcS-vNLd68uk - null null
+2024-06-22 14:10:00.799 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/js/reglogmenu.js?v=PNFoGHCbR9J6I0G6Xya1yjpmJjWBaPi1IR-Y4YcQluI - null null
+2024-06-22 14:10:00.801 +10:00 [INF] The file /css/reglogmenu.css was not modified
+2024-06-22 14:10:00.804 +10:00 [INF] The file /js/reglogmenu.js was not modified
+2024-06-22 14:10:00.805 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/css/reglogmenu.css?v=7wnsLP0ejQmJzNbNlWgqBq8V6il6ezAVcS-vNLd68uk - 304 null text/css 7.0277ms
+2024-06-22 14:10:00.806 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/js/reglogmenu.js?v=PNFoGHCbR9J6I0G6Xya1yjpmJjWBaPi1IR-Y4YcQluI - 304 null text/javascript 7.4085ms
+2024-06-22 14:10:00.816 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:10:00.820 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 4.315ms
+2024-06-22 14:10:00.823 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_vs/browserLink - null null
+2024-06-22 14:10:00.869 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.7564ms
+2024-06-22 14:10:17.849 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/Register/VerifyForLogin?LoginViewModel.Login=zxc - null null
+2024-06-22 14:10:17.855 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Account.RegisterController.VerifyForLogin (MyBlog)'
+2024-06-22 14:10:17.869 +10:00 [INF] Route matched with {action = "VerifyForLogin", controller = "Register"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyForLogin(MyBlog.Models.AccountModel.SignView) on controller MyBlog.Controllers.Account.RegisterController (MyBlog).
+2024-06-22 14:10:17.926 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:17.934 +10:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:17.959 +10:00 [INF] Executing action method MyBlog.Controllers.Account.RegisterController.VerifyForLogin (MyBlog) - Validation state: "Invalid"
+2024-06-22 14:10:18.027 +10:00 [INF] Executed DbCommand (40ms) [Parameters=[@__login_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Login] = @__login_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-06-22 14:10:18.030 +10:00 [INF] Executed action method MyBlog.Controllers.Account.RegisterController.VerifyForLogin (MyBlog), returned result Microsoft.AspNetCore.Mvc.JsonResult in 69.7945ms.
+2024-06-22 14:10:18.032 +10:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2024-06-22 14:10:18.038 +10:00 [INF] Executed action MyBlog.Controllers.Account.RegisterController.VerifyForLogin (MyBlog) in 166.5622ms
+2024-06-22 14:10:18.038 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Account.RegisterController.VerifyForLogin (MyBlog)'
+2024-06-22 14:10:18.039 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/Register/VerifyForLogin?LoginViewModel.Login=zxc - 200 null application/json; charset=utf-8 190.7477ms
+2024-06-22 14:10:24.586 +10:00 [INF] Request starting HTTP/2 POST https://localhost:7015/AccountManager/Login - application/x-www-form-urlencoded 238
+2024-06-22 14:10:24.606 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog)'
+2024-06-22 14:10:24.609 +10:00 [INF] Route matched with {action = "Login", controller = "AccountManager"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(MyBlog.Models.AccountModel.SignView) on controller MyBlog.Controllers.Account.AccountManagerController (MyBlog).
+2024-06-22 14:10:24.611 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:24.619 +10:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:24.635 +10:00 [INF] Executing action method MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog) - Validation state: "Invalid"
+2024-06-22 14:10:24.656 +10:00 [INF] Executed DbCommand (2ms) [Parameters=[@__login_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id], [r].[Name]
+FROM [Users] AS [u]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+WHERE [u].[Login] = @__login_0
+2024-06-22 14:10:24.666 +10:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-06-22 14:10:24.667 +10:00 [INF] user id e33b63f7-e527-4a12-8412-08dc8d140c43 has created
+2024-06-22 14:10:24.668 +10:00 [INF] Executed action method MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog), returned result Microsoft.AspNetCore.Mvc.RedirectToActionResult in 32.0975ms.
+2024-06-22 14:10:24.669 +10:00 [INF] Executing RedirectResult, redirecting to /.
+2024-06-22 14:10:24.670 +10:00 [INF] Executed action MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog) in 60.4216ms
+2024-06-22 14:10:24.671 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Account.AccountManagerController.Login (MyBlog)'
+2024-06-22 14:10:24.673 +10:00 [INF] Request finished HTTP/2 POST https://localhost:7015/AccountManager/Login - 302 0 null 86.6092ms
+2024-06-22 14:10:24.679 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/ - null null
+2024-06-22 14:10:24.695 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.HomeController.Index (MyBlog)'
+2024-06-22 14:10:24.696 +10:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller MyBlog.Controllers.HomeController (MyBlog).
+2024-06-22 14:10:24.697 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:24.699 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:24.709 +10:00 [INF] Executing action method MyBlog.Controllers.HomeController.Index (MyBlog) - Validation state: "Valid"
+2024-06-22 14:10:24.717 +10:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[DatePosted], [a].[Description], [a].[Title], [a].[UserId], [u].[Id], [r].[Id], [t].[Id], [t].[ArticleId], [t].[CreatedDate], [t].[Text], [t].[UserId], [t].[Id0], [t].[About], [t].[DateOfTheBirth], [t].[Email], [t].[FirstName], [t].[Image], [t].[Login], [t].[Password], [t].[PhoneNumber], [t].[RememberMe], [t].[RoleId], [t].[Status], [t].[Surname], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Name], [t0].[Id], [t0].[ArticleId], [t0].[Name]
+FROM [Articles] AS [a]
+INNER JOIN [Users] AS [u] ON [a].[UserId] = [u].[Id]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+LEFT JOIN (
+    SELECT [c].[Id], [c].[ArticleId], [c].[CreatedDate], [c].[Text], [c].[UserId], [u0].[Id] AS [Id0], [u0].[About], [u0].[DateOfTheBirth], [u0].[Email], [u0].[FirstName], [u0].[Image], [u0].[Login], [u0].[Password], [u0].[PhoneNumber], [u0].[RememberMe], [u0].[RoleId], [u0].[Status], [u0].[Surname]
+    FROM [Comments] AS [c]
+    INNER JOIN [Users] AS [u0] ON [c].[UserId] = [u0].[Id]
+) AS [t] ON [a].[Id] = [t].[ArticleId]
+LEFT JOIN [Tags] AS [t0] ON [a].[Id] = [t0].[ArticleId]
+ORDER BY [a].[Id], [u].[Id], [r].[Id], [t].[Id], [t].[Id0]
+2024-06-22 14:10:24.735 +10:00 [INF] Executed action method MyBlog.Controllers.HomeController.Index (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 25.4385ms.
+2024-06-22 14:10:24.736 +10:00 [INF] Executing ViewResult, running view Index.
+2024-06-22 14:10:24.749 +10:00 [INF] Executed ViewResult - view Index executed in 13.2425ms.
+2024-06-22 14:10:24.750 +10:00 [INF] Executed action MyBlog.Controllers.HomeController.Index (MyBlog) in 53.3768ms
+2024-06-22 14:10:24.751 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.HomeController.Index (MyBlog)'
+2024-06-22 14:10:24.751 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/ - 200 null text/html; charset=utf-8 71.7829ms
+2024-06-22 14:10:24.766 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:10:24.769 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 3.0372ms
+2024-06-22 14:10:24.785 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_vs/browserLink - null null
+2024-06-22 14:10:24.799 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_vs/browserLink - 200 null text/javascript; charset=UTF-8 14.3852ms
+2024-06-22 14:10:31.094 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/AccountManager/UserPage - null null
+2024-06-22 14:10:31.115 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog)'
+2024-06-22 14:10:31.119 +10:00 [INF] Route matched with {action = "UserPage", controller = "AccountManager"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserPage() on controller MyBlog.Controllers.Account.AccountManagerController (MyBlog).
+2024-06-22 14:10:31.122 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:31.124 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:31.136 +10:00 [INF] Executing action method MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog) - Validation state: "Valid"
+2024-06-22 14:10:31.139 +10:00 [INF] Executed DbCommand (1ms) [Parameters=[@__login_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id], [r].[Name]
+FROM [Users] AS [u]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+WHERE [u].[Login] = @__login_0
+2024-06-22 14:10:31.152 +10:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2024-06-22 14:10:31.164 +10:00 [INF] Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[DatePosted], [a].[Description], [a].[Title], [a].[UserId], [t].[Id], [t].[ArticleId], [t].[CreatedDate], [t].[Text], [t].[UserId], [t].[Id0], [t].[About], [t].[DateOfTheBirth], [t].[Email], [t].[FirstName], [t].[Image], [t].[Login], [t].[Password], [t].[PhoneNumber], [t].[RememberMe], [t].[RoleId], [t].[Status], [t].[Surname], [t].[Id1], [t].[Name], [t0].[Id], [t0].[ArticleId], [t0].[Name]
+FROM [Articles] AS [a]
+LEFT JOIN (
+    SELECT [c].[Id], [c].[ArticleId], [c].[CreatedDate], [c].[Text], [c].[UserId], [u].[Id] AS [Id0], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id] AS [Id1], [r].[Name]
+    FROM [Comments] AS [c]
+    INNER JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+    INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+) AS [t] ON [a].[Id] = [t].[ArticleId]
+LEFT JOIN [Tags] AS [t0] ON [a].[Id] = [t0].[ArticleId]
+WHERE [a].[UserId] = @__id_0
+ORDER BY [a].[Id], [t].[Id], [t].[Id0], [t].[Id1]
+2024-06-22 14:10:31.167 +10:00 [INF] Executed action method MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 30.7693ms.
+2024-06-22 14:10:31.169 +10:00 [INF] Executing ViewResult, running view UserPage.
+2024-06-22 14:10:31.182 +10:00 [INF] Executed ViewResult - view UserPage executed in 13.7547ms.
+2024-06-22 14:10:31.183 +10:00 [INF] Executed action MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog) in 62.1072ms
+2024-06-22 14:10:31.184 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog)'
+2024-06-22 14:10:31.185 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/AccountManager/UserPage - 200 null text/html; charset=utf-8 90.7463ms
+2024-06-22 14:10:31.203 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/css/userPageArticle.css - null null
+2024-06-22 14:10:31.203 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/css/userpage.css - null null
+2024-06-22 14:10:31.205 +10:00 [INF] The file /css/userPageArticle.css was not modified
+2024-06-22 14:10:31.207 +10:00 [INF] The file /css/userpage.css was not modified
+2024-06-22 14:10:31.208 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/css/userPageArticle.css - 304 null text/css 5.9574ms
+2024-06-22 14:10:31.209 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/css/userpage.css - 304 null text/css 6.0656ms
+2024-06-22 14:10:31.217 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:10:31.218 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_vs/browserLink - null null
+2024-06-22 14:10:31.220 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 3.7345ms
+2024-06-22 14:10:31.243 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_vs/browserLink - 200 null text/javascript; charset=UTF-8 25.4187ms
+2024-06-22 14:10:37.899 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/ArticleManager/OpenArticle/27b6d720-0ca9-4244-1ead-08dc8d142a3e - null null
+2024-06-22 14:10:37.914 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Article.ArticleManagerController.OpenArticle (MyBlog)'
+2024-06-22 14:10:37.919 +10:00 [INF] Route matched with {action = "OpenArticle", controller = "ArticleManager"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] OpenArticle(System.Guid) on controller MyBlog.Controllers.Article.ArticleManagerController (MyBlog).
+2024-06-22 14:10:37.921 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:37.923 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:37.935 +10:00 [INF] Executing action method MyBlog.Controllers.Article.ArticleManagerController.OpenArticle (MyBlog) - Validation state: "Valid"
+2024-06-22 14:10:37.947 +10:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2024-06-22 14:10:37.956 +10:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DatePosted], [t].[Description], [t].[Title], [t].[UserId], [t].[Id0], [t].[About], [t].[DateOfTheBirth], [t].[Email], [t].[FirstName], [t].[Image], [t].[Login], [t].[Password], [t].[PhoneNumber], [t].[RememberMe], [t].[RoleId], [t].[Status], [t].[Surname], [t].[Id1], [t].[Name], [t0].[Id], [t0].[ArticleId], [t0].[CreatedDate], [t0].[Text], [t0].[UserId], [t0].[Id0], [t0].[About], [t0].[DateOfTheBirth], [t0].[Email], [t0].[FirstName], [t0].[Image], [t0].[Login], [t0].[Password], [t0].[PhoneNumber], [t0].[RememberMe], [t0].[RoleId], [t0].[Status], [t0].[Surname], [t1].[Id], [t1].[ArticleId], [t1].[Name]
+FROM (
+    SELECT TOP(1) [a].[Id], [a].[DatePosted], [a].[Description], [a].[Title], [a].[UserId], [u].[Id] AS [Id0], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id] AS [Id1], [r].[Name]
+    FROM [Articles] AS [a]
+    INNER JOIN [Users] AS [u] ON [a].[UserId] = [u].[Id]
+    INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+    WHERE [a].[Id] = @__id_0
+) AS [t]
+LEFT JOIN (
+    SELECT [c].[Id], [c].[ArticleId], [c].[CreatedDate], [c].[Text], [c].[UserId], [u0].[Id] AS [Id0], [u0].[About], [u0].[DateOfTheBirth], [u0].[Email], [u0].[FirstName], [u0].[Image], [u0].[Login], [u0].[Password], [u0].[PhoneNumber], [u0].[RememberMe], [u0].[RoleId], [u0].[Status], [u0].[Surname]
+    FROM [Comments] AS [c]
+    INNER JOIN [Users] AS [u0] ON [c].[UserId] = [u0].[Id]
+) AS [t0] ON [t].[Id] = [t0].[ArticleId]
+LEFT JOIN [Tags] AS [t1] ON [t].[Id] = [t1].[ArticleId]
+ORDER BY [t].[Id], [t].[Id0], [t].[Id1], [t0].[Id], [t0].[Id0]
+2024-06-22 14:10:37.965 +10:00 [INF] Executed action method MyBlog.Controllers.Article.ArticleManagerController.OpenArticle (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 28.689ms.
+2024-06-22 14:10:37.966 +10:00 [INF] Executing ViewResult, running view OpenArticle.
+2024-06-22 14:10:37.974 +10:00 [INF] Executed ViewResult - view OpenArticle executed in 8.5151ms.
+2024-06-22 14:10:37.975 +10:00 [INF] Executed action MyBlog.Controllers.Article.ArticleManagerController.OpenArticle (MyBlog) in 54.8328ms
+2024-06-22 14:10:37.976 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Article.ArticleManagerController.OpenArticle (MyBlog)'
+2024-06-22 14:10:37.977 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/ArticleManager/OpenArticle/27b6d720-0ca9-4244-1ead-08dc8d142a3e - 200 null text/html; charset=utf-8 77.64ms
+2024-06-22 14:10:37.995 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:10:37.998 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 3.2617ms
+2024-06-22 14:10:38.010 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_vs/browserLink - null null
+2024-06-22 14:10:38.023 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.3385ms
+2024-06-22 14:10:40.957 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/AccountManager/UserPage - null null
+2024-06-22 14:10:40.975 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog)'
+2024-06-22 14:10:40.976 +10:00 [INF] Route matched with {action = "UserPage", controller = "AccountManager"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserPage() on controller MyBlog.Controllers.Account.AccountManagerController (MyBlog).
+2024-06-22 14:10:40.979 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:40.981 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:40.993 +10:00 [INF] Executing action method MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog) - Validation state: "Valid"
+2024-06-22 14:10:40.996 +10:00 [INF] Executed DbCommand (1ms) [Parameters=[@__login_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id], [r].[Name]
+FROM [Users] AS [u]
+INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+WHERE [u].[Login] = @__login_0
+2024-06-22 14:10:40.998 +10:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[DatePosted], [a].[Description], [a].[Title], [a].[UserId], [t].[Id], [t].[ArticleId], [t].[CreatedDate], [t].[Text], [t].[UserId], [t].[Id0], [t].[About], [t].[DateOfTheBirth], [t].[Email], [t].[FirstName], [t].[Image], [t].[Login], [t].[Password], [t].[PhoneNumber], [t].[RememberMe], [t].[RoleId], [t].[Status], [t].[Surname], [t].[Id1], [t].[Name], [t0].[Id], [t0].[ArticleId], [t0].[Name]
+FROM [Articles] AS [a]
+LEFT JOIN (
+    SELECT [c].[Id], [c].[ArticleId], [c].[CreatedDate], [c].[Text], [c].[UserId], [u].[Id] AS [Id0], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id] AS [Id1], [r].[Name]
+    FROM [Comments] AS [c]
+    INNER JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+    INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+) AS [t] ON [a].[Id] = [t].[ArticleId]
+LEFT JOIN [Tags] AS [t0] ON [a].[Id] = [t0].[ArticleId]
+WHERE [a].[UserId] = @__id_0
+ORDER BY [a].[Id], [t].[Id], [t].[Id0], [t].[Id1]
+2024-06-22 14:10:41.001 +10:00 [INF] Executed action method MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 6.5652ms.
+2024-06-22 14:10:41.002 +10:00 [INF] Executing ViewResult, running view UserPage.
+2024-06-22 14:10:41.004 +10:00 [INF] Executed ViewResult - view UserPage executed in 2.7918ms.
+2024-06-22 14:10:41.005 +10:00 [INF] Executed action MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog) in 27.0014ms
+2024-06-22 14:10:41.006 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Account.AccountManagerController.UserPage (MyBlog)'
+2024-06-22 14:10:41.006 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/AccountManager/UserPage - 200 null text/html; charset=utf-8 49.464ms
+2024-06-22 14:10:41.021 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:10:41.024 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 2.6289ms
+2024-06-22 14:10:42.376 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/ArticleManager/EditArticle/27b6d720-0ca9-4244-1ead-08dc8d142a3e - null null
+2024-06-22 14:10:42.392 +10:00 [INF] Executing endpoint 'MyBlog.Controllers.Article.ArticleManagerController.EditArticle (MyBlog)'
+2024-06-22 14:10:42.396 +10:00 [INF] Route matched with {action = "EditArticle", controller = "ArticleManager"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] EditArticle(System.Guid) on controller MyBlog.Controllers.Article.ArticleManagerController (MyBlog).
+2024-06-22 14:10:42.399 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-06-22 14:10:42.401 +10:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2024-06-22 14:10:42.414 +10:00 [INF] Executing action method MyBlog.Controllers.Article.ArticleManagerController.EditArticle (MyBlog) - Validation state: "Valid"
+2024-06-22 14:10:42.417 +10:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DatePosted], [t].[Description], [t].[Title], [t].[UserId], [t].[Id0], [t].[About], [t].[DateOfTheBirth], [t].[Email], [t].[FirstName], [t].[Image], [t].[Login], [t].[Password], [t].[PhoneNumber], [t].[RememberMe], [t].[RoleId], [t].[Status], [t].[Surname], [t].[Id1], [t].[Name], [t0].[Id], [t0].[ArticleId], [t0].[CreatedDate], [t0].[Text], [t0].[UserId], [t0].[Id0], [t0].[About], [t0].[DateOfTheBirth], [t0].[Email], [t0].[FirstName], [t0].[Image], [t0].[Login], [t0].[Password], [t0].[PhoneNumber], [t0].[RememberMe], [t0].[RoleId], [t0].[Status], [t0].[Surname], [t1].[Id], [t1].[ArticleId], [t1].[Name]
+FROM (
+    SELECT TOP(1) [a].[Id], [a].[DatePosted], [a].[Description], [a].[Title], [a].[UserId], [u].[Id] AS [Id0], [u].[About], [u].[DateOfTheBirth], [u].[Email], [u].[FirstName], [u].[Image], [u].[Login], [u].[Password], [u].[PhoneNumber], [u].[RememberMe], [u].[RoleId], [u].[Status], [u].[Surname], [r].[Id] AS [Id1], [r].[Name]
+    FROM [Articles] AS [a]
+    INNER JOIN [Users] AS [u] ON [a].[UserId] = [u].[Id]
+    INNER JOIN [Roles] AS [r] ON [u].[RoleId] = [r].[Id]
+    WHERE [a].[Id] = @__id_0
+) AS [t]
+LEFT JOIN (
+    SELECT [c].[Id], [c].[ArticleId], [c].[CreatedDate], [c].[Text], [c].[UserId], [u0].[Id] AS [Id0], [u0].[About], [u0].[DateOfTheBirth], [u0].[Email], [u0].[FirstName], [u0].[Image], [u0].[Login], [u0].[Password], [u0].[PhoneNumber], [u0].[RememberMe], [u0].[RoleId], [u0].[Status], [u0].[Surname]
+    FROM [Comments] AS [c]
+    INNER JOIN [Users] AS [u0] ON [c].[UserId] = [u0].[Id]
+) AS [t0] ON [t].[Id] = [t0].[ArticleId]
+LEFT JOIN [Tags] AS [t1] ON [t].[Id] = [t1].[ArticleId]
+ORDER BY [t].[Id], [t].[Id0], [t].[Id1], [t0].[Id], [t0].[Id0]
+2024-06-22 14:10:42.422 +10:00 [INF] Executed action method MyBlog.Controllers.Article.ArticleManagerController.EditArticle (MyBlog), returned result Microsoft.AspNetCore.Mvc.ViewResult in 7.0669ms.
+2024-06-22 14:10:42.424 +10:00 [INF] Executing ViewResult, running view EditArticle.
+2024-06-22 14:10:42.525 +10:00 [INF] Executed ViewResult - view EditArticle executed in 101.6173ms.
+2024-06-22 14:10:42.527 +10:00 [INF] Executed action MyBlog.Controllers.Article.ArticleManagerController.EditArticle (MyBlog) in 128.5775ms
+2024-06-22 14:10:42.527 +10:00 [INF] Executed endpoint 'MyBlog.Controllers.Article.ArticleManagerController.EditArticle (MyBlog)'
+2024-06-22 14:10:42.528 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/ArticleManager/EditArticle/27b6d720-0ca9-4244-1ead-08dc8d142a3e - 200 null text/html; charset=utf-8 151.818ms
+2024-06-22 14:10:42.542 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - null null
+2024-06-22 14:10:42.543 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/css/articleEditForm.css?v=ljJqBojtHv2P88aAKWBknDjpbMkKVSkmKKJZAri4v_I - null null
+2024-06-22 14:10:42.545 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 3.0658ms
+2024-06-22 14:10:42.547 +10:00 [INF] The file /css/articleEditForm.css was not modified
+2024-06-22 14:10:42.551 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/css/articleEditForm.css?v=ljJqBojtHv2P88aAKWBknDjpbMkKVSkmKKJZAri4v_I - 304 null text/css 8.5141ms
+2024-06-22 14:10:42.557 +10:00 [INF] Request starting HTTP/2 GET https://localhost:7015/_vs/browserLink - null null
+2024-06-22 14:10:42.567 +10:00 [INF] Request finished HTTP/2 GET https://localhost:7015/_vs/browserLink - 200 null text/javascript; charset=UTF-8 9.6558ms
