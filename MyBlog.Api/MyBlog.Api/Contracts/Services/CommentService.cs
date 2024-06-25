@@ -41,7 +41,6 @@ namespace MyBlog.Api.Contracts.Services
         public async Task<IEnumerable<Comment>> GetCommentsByArticleId(Guid id)
         {
             var comments = await _commentRepository.FindCommentsByArticleId(id);
-           // var commentModels = _mapper.Map<IEnumerable<CommentModel>>(comments);
             return comments;
         }       
     }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Api.Contracts.Mapping;
 using MyBlog.Api.Contracts.Services;
@@ -22,6 +23,18 @@ builder.Services
             .AddTransient<ICommentService, CommentService>()
             .AddTransient<IArticleService, ArticleService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie("Cookies", options =>
+    {
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = redirectContext =>
+            {
+                redirectContext.HttpContext.Response.StatusCode = 401;
+                return Task.CompletedTask;
+            }
+        };
+    });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -40,6 +53,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 

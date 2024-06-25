@@ -19,12 +19,25 @@ namespace MyBlog.Api.Contracts.Services
         public async Task CreateArticle(ArticleCreateRequest model)
         {
             var article = _mapper.Map<Article>(model);
-           /* var tags = new List<TagEntity>();
-            tags.Convert(model.Tags);
-            article.Tags = tags;*/
-
             await _articleRepo.CreateArticle(article);
         }
+
+        public async Task<Article> FindArticleById(Guid id)
+        {
+            var searchingArticle = await _articleRepo.FindArticleById(id);
+            return searchingArticle;
+        }
+        public async Task<IEnumerable<Article>> GetArticles()
+        {
+            var articles = await _articleRepo.GetAllArticles();
+            return articles;
+        }
+        public async Task<IEnumerable<Article>> GetUserArticles(Guid id)
+        {
+            var userArticles = await _articleRepo.FindArticlesByUserId(id);
+            return userArticles;
+        }
+
         public async Task DeleteArticle(Guid id)
         {
             await _articleRepo.DeleteArticleById(id);
@@ -34,30 +47,23 @@ namespace MyBlog.Api.Contracts.Services
             var articleToUpdate = _mapper.Map<Article>(model);
             _articleRepo.UpdateArticle(articleToUpdate);
         }
-        public async Task<Article> FindArticleById(Guid id)
-        {
-            var searchingArticle = await _articleRepo.FindArticleById(id);     
-            return searchingArticle;
-        }
-
-        public async Task<IEnumerable<Article>> GetArticles()
-        {
-            var articles = await _articleRepo.GetAllArticles();
-           // var aricleArray = _mapper.Map<IEnumerable<ArticleModel>>(articles);
-            return articles;
-        }
-        public async Task<IEnumerable<Article>> GetUserArticles(Guid id)
-        {
-            var userArticles = await _articleRepo.FindArticlesByUserId(id);
-            //var Articles = _mapper.Map<IEnumerable<ArticleModel>>(userArticles);
-            return userArticles;
-        }
+        
 
         public async Task AddTag(TagCreateRequest model)
         {
             var tag = _mapper.Map<Tag>(model);
             if (model != null)
                 await _articleRepo.AddTag(tag);
+        }
+        public async Task<Tag> FindTagById(int id)
+        {
+            var tagEntity = await _articleRepo.FindTagById(id);
+            return tagEntity;
+        }
+        public async Task<IEnumerable<Tag>> GetTags()
+        {
+            var tags = await _articleRepo.GetTags();
+            return tags;
         }
         public async Task DeleteTag(int id)
         {
@@ -68,25 +74,20 @@ namespace MyBlog.Api.Contracts.Services
             var tagEntity = _mapper.Map<Tag>(model);
             _articleRepo.UpdateTag(tagEntity);
         }
-
-        public async Task<Tag> FindTagById(int id)
-        {
-            var tagEntity = await _articleRepo.FindTagById(id);
-            //var tagModel = _mapper.Map<TagModel>(tagEntity);
-            return tagEntity;
-        }  
     }
     public interface IArticleService
     {
         Task CreateArticle(ArticleCreateRequest model);
-        Task DeleteArticle(Guid id);
-        void UpdateArticle(ArticleEditRequest model);
         Task<Article> FindArticleById(Guid id);
         Task<IEnumerable<Article>> GetArticles();
         Task<IEnumerable<Article>> GetUserArticles(Guid id);
+        Task DeleteArticle(Guid id);
+        void UpdateArticle(ArticleEditRequest model);   
         Task AddTag(TagCreateRequest model);
+        Task<Tag> FindTagById(int id);
+        Task<IEnumerable<Tag>> GetTags();
         Task DeleteTag(int id);
         void UpdateTag(TagEditRequest model);
-        Task<Tag> FindTagById(int id);
+        
     }
 }

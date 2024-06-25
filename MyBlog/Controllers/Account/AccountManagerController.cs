@@ -31,8 +31,6 @@ namespace MyBlog.Controllers.Account
             _articleService = articleService;
         }
 
-    
-
         // GET: UserController
         public ActionResult Login()
         {

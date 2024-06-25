@@ -90,12 +90,11 @@ namespace MyBlog.Api.DLL.Repositories
             if (tag != null) return tag;
             return null;
         }
-
-        public void UpdateTag(Tag tag)
+        public async Task<IEnumerable<Tag>> GetTags()
         {
-            if (tag != null)
-                _context.Update(tag);
-            _context.SaveChanges();
+            var tags = await _context.Tags.ToListAsync();
+            if (tags != null) return tags;
+            return null;
         }
 
         public async Task DeleteTagById(int id)
@@ -105,6 +104,12 @@ namespace MyBlog.Api.DLL.Repositories
                 _context.Tags.Remove(tagtoDelete);
             await _context.SaveChangesAsync();
         }
+        public void UpdateTag(Tag tag)
+        {
+            if (tag != null)
+                _context.Update(tag);
+            _context.SaveChanges();
+        } 
 
     }
 
@@ -116,10 +121,11 @@ namespace MyBlog.Api.DLL.Repositories
         Task<Article> FindArticleById(Guid id);
         Task DeleteArticleById(Guid id);
         void UpdateArticle(Article article);
+        Task AddTag(Tag tag);
         Task AddTags(List<Tag> tags);
         Task<Tag> FindTagById(int id);
-        void UpdateTag(Tag tag);
+        Task<IEnumerable<Tag>> GetTags();
         Task DeleteTagById(int id);
-        Task AddTag(Tag tag);
+        void UpdateTag(Tag tag);
     }
 }

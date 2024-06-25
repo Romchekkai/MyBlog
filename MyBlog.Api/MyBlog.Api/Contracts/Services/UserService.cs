@@ -23,16 +23,6 @@ namespace MyBlog.Api.Contracts.Services
             var user = _mapper.Map<User>(model);
             await _userRepo.CreateUser(user);
         }
-        public async Task<User> EditUser(UserEditRequest model)
-        {
-            var foundedUser = await _userRepo.FindUserById(model.Id);
-            foundedUser.Convert(model);
-
-            await _userRepo.UpdateUser(foundedUser);
-        
-            return foundedUser;
-        }
-
         public async Task<User> FindUserById(Guid id)
         {
             var foundedUser = await _userRepo.FindUserById(id);
@@ -54,6 +44,22 @@ namespace MyBlog.Api.Contracts.Services
             var foundedUser = await _userRepo.FindByEmail(email);
             return foundedUser;
         }
+
+        public async Task DeleteUser(Guid id)
+        {
+            await _userRepo.DeleteUser(id); 
+        }
+        public async Task<User> EditUser(UserEditRequest model)
+        {
+            var foundedUser = await _userRepo.FindUserById(model.Id);
+            foundedUser.Convert(model);
+
+            await _userRepo.UpdateUser(foundedUser);
+        
+            return foundedUser;
+        }
+
+       
         public async Task<bool> CheckByEmail(string email)
         {
             bool verify = await _userRepo.CheckByEmail(email);
@@ -64,19 +70,6 @@ namespace MyBlog.Api.Contracts.Services
             bool verify = await _userRepo.CheckByLogin(login);
             return verify;
         }
-      /*  public async Task<bool> CheckByPassword(string password, string login)
-        {
-            bool verify = await _userRepo.CheckByPassword(password, login);
-            return verify;
-        }*/
-
-      /*  public async Task<IEnumerable<UserRoleModel>> GetRoles()
-        {
-            var roles = await _userRepo.GetRoles();
-            var rolesModel = _mapper.Map<IEnumerable<UserRoleModel>>(roles);
-
-            return rolesModel;
-        }*/
 
         public async Task ChangeRole(int role, Guid userID)
         {
@@ -88,11 +81,12 @@ namespace MyBlog.Api.Contracts.Services
     public interface IUserService
     {
         Task CreateUser(RegisterRequest model);
-        Task<User> EditUser(UserEditRequest model);
         Task<User> FindUserById(Guid id);
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> FindUserByLogin(string login);
         Task<User> FindUserByEmail(string email);
+        Task DeleteUser(Guid id);
+        Task<User> EditUser(UserEditRequest model);
         Task<bool> CheckByEmail(string email);
         Task<bool> CheckByLogin(string login);
         Task ChangeRole(int role, Guid userID);

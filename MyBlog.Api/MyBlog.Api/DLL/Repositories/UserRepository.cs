@@ -15,10 +15,6 @@ namespace MyBlog.Api.DLL.Repositories
         {
             _context = context;
         }
-        public void GetContext()
-        {
-
-        }
 
         public async Task CreateUser(User user)
         {
@@ -100,7 +96,8 @@ namespace MyBlog.Api.DLL.Repositories
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-            var users = await _context.Users.Include(r => r.Role).ToListAsync();
+            var users = await _context.Users.Include(r => r.Role)
+                .ToListAsync();
             return users;
         }
 
