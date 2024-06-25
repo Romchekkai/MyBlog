@@ -24,17 +24,7 @@ builder.Services
             .AddTransient<IArticleService, ArticleService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie("Cookies", options =>
-    {
-        options.Events = new CookieAuthenticationEvents
-        {
-            OnRedirectToLogin = redirectContext =>
-            {
-                redirectContext.HttpContext.Response.StatusCode = 401;
-                return Task.CompletedTask;
-            }
-        };
-    });
+    .AddCookie();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
