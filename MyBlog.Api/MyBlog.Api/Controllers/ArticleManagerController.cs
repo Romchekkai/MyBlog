@@ -7,21 +7,22 @@ using MyBlog.Api.DLL.Models.ResponseModels;
 
 namespace MyBlog.Api.Controllers
 {
+    /// <summary>
+    /// Manage article, unauthorize only get
+    /// </summary>
     public class ArticleManagerController : Controller
     {
-        private IUserService _userService;
-        private IMapper _mapper;
         private IArticleService _articleService;
 
-
-        public ArticleManagerController(IUserService userService, IMapper mapper,
-            IArticleService articleService)
+        public ArticleManagerController(IArticleService articleService)
         {
-            _userService = userService;
-            _mapper = mapper;
             _articleService = articleService;
         }
-
+        /// <summary>
+        /// Create article
+        /// </summary>
+        /// <param name="model"> Article request</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         [Route("createArticle")]
@@ -51,6 +52,11 @@ namespace MyBlog.Api.Controllers
                 throw new ArgumentNullException(nameof(id));
             }
         }
+        /// <summary>
+        /// get all articles to view
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [Route("articles")]
         [HttpGet]
         public async Task<IEnumerable<Article>> GetArticles()
@@ -65,6 +71,12 @@ namespace MyBlog.Api.Controllers
                 throw new Exception("Неизвестная ошибка при открытии статей");
             }
         }
+        /// <summary>
+        /// get user articles
+        /// </summary>
+        /// <param name="id"> Guid</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [HttpGet]
         [Route("userArticles")]
         public async Task<IEnumerable<Article>> GetUserArticles(Guid id)
@@ -110,6 +122,12 @@ namespace MyBlog.Api.Controllers
                 return StatusCode(400);
             }
         }
+
+        /// <summary>
+        /// add tag to article
+        /// </summary>
+        /// <param name="request">Tag request</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         [Route("addTag")]
@@ -125,6 +143,11 @@ namespace MyBlog.Api.Controllers
                 return StatusCode(400);
             }
         }
+        /// <summary>
+        /// get tags
+        /// </summary>
+        /// <returns> Tag's list</returns>
+        /// <exception cref="Exception"></exception>
         [HttpGet]
         [Route("tags")]
         public async Task<IEnumerable<Tag>> GetTags()

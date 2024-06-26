@@ -10,11 +10,16 @@ namespace MyBlog.Api.DLL.Models.RequestModels
 {
     public class LoginRequest
     {
+        /// <summary>
+        /// Login
+        /// </summary>
         [Required]
         [Display(Name = "Login")]
         [Remote(action: "VerifyForLogin", controller: "Register", ErrorMessage = "Логин не найден")]
         public string Login { get; set; }
-
+        /// <summary>
+        /// Password
+        /// </summary>
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]

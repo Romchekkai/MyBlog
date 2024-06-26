@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyBlog.Api</name>
+    </assembly>
+    <members>
+        <member name="T:MyBlog.Api.Controllers.AccountManagerController">
+            <summary>
+            Manage user data and authenticate
+            </summary>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.Login(MyBlog.Api.DLL.Models.RequestModels.LoginRequest)">
+            <summary>
+            login
+            </summary>
+            <param name="request"> login request</param>
+            <returns>cookie</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.LogOut">
+            <summary>
+            Completed cookie's session
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.CreateUser(MyBlog.Api.DLL.Models.RequestModels.RegisterRequest)">
+            <summary>
+            Create user, admin role only
+            </summary>
+            <param name="model"></param>
+            <returns> 200ok</returns>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.UserPage">
+            <summary>
+            get user data
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.GetUsers">
+            <summary>
+            get users data
+            </summary>
+            <returns>User's list</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.UserDelete(System.Guid)">
+            <summary>
+            delte user
+            </summary>
+            <param name="id"> Guid </param>
+            <returns></returns>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.AccountManagerController.UserEdit(MyBlog.Api.DLL.Models.RequestModels.UserEditRequest)">
+            <summary>
+            edit user
+            </summary>
+            <param name="model"> edited user data</param>
+            <returns></returns>
+        </member>
+        <member name="T:MyBlog.Api.Controllers.ArticleManagerController">
+            <summary>
+            Manage article, unauthorize only get
+            </summary>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.ArticleManagerController.NewArticle(MyBlog.Api.DLL.Models.RequestModels.ArticleCreateRequest)">
+            <summary>
+            Create article
+            </summary>
+            <param name="model"> Article request</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.ArticleManagerController.GetArticles">
+            <summary>
+            get all articles to view
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.ArticleManagerController.GetUserArticles(System.Guid)">
+            <summary>
+            get user articles
+            </summary>
+            <param name="id"> Guid</param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.ArticleManagerController.AddTag(MyBlog.Api.DLL.Models.RequestModels.TagCreateRequest)">
+            <summary>
+            add tag to article
+            </summary>
+            <param name="request">Tag request</param>
+            <returns></returns>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.ArticleManagerController.GetTags">
+            <summary>
+            get tags
+            </summary>
+            <returns> Tag's list</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:MyBlog.Api.Controllers.CommentManagerController">
+            <summary>
+            Manage commentaries 
+            </summary>
+        </member>
+        <member name="T:MyBlog.Api.Controllers.RegisterController">
+            <summary>
+            Register users
+            </summary>
+        </member>
+        <member name="M:MyBlog.Api.Controllers.RegisterController.Register(MyBlog.Api.DLL.Models.RequestModels.RegisterRequest)">
+            <summary>
+            Register user
+            </summary>
+            <param name="model"> Register data request</param>
+            <returns></returns>
+        </member>
+        <member name="P:MyBlog.Api.DLL.Models.RequestModels.LoginRequest.Login">
+            <summary>
+            Login
+            </summary>
+        </member>
+        <member name="P:MyBlog.Api.DLL.Models.RequestModels.LoginRequest.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+    </members>
+</doc>

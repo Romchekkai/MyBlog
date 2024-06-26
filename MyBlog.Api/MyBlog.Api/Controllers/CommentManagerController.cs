@@ -9,6 +9,9 @@ using MyBlog.Api.DLL.Models.ResponseModels;
 
 namespace MyBlog.Api.Controllers
 {
+    /// <summary>
+    /// Manage commentaries 
+    /// </summary>
     public class CommentManagerController : Controller
     {
         private ICommentService _commentService;

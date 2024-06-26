@@ -9,6 +9,9 @@ using MyBlog.Api.DLL.Models.ResponseModels;
 
 namespace MyBlog.Api.Controllers
 {
+    /// <summary>
+    /// Register users
+    /// </summary>
     public class RegisterController : Controller
     {
         private IUserService _userService;
@@ -16,6 +19,11 @@ namespace MyBlog.Api.Controllers
         {
             _userService = userService;
         }
+        /// <summary>
+        /// Register user
+        /// </summary>
+        /// <param name="model"> Register data request</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register(RegisterRequest model)

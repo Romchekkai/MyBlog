@@ -1,16 +1,17 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Contracts.Services;
 using MyBlog.Api.DLL.Models.RequestModels;
 using System.Security.Claims;
-using Azure.Core;
 using MyBlog.Api.DLL.Models.ResponseModels;
 
 namespace MyBlog.Api.Controllers
 {
+   /// <summary>
+   /// Manage user data and authenticate
+   /// </summary>
     public class AccountManagerController : Controller
     {
         private IUserService _userService;
@@ -20,15 +21,22 @@ namespace MyBlog.Api.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// login
+        /// </summary>
+        /// <param name="request"> login request</param>
+        /// <returns>cookie</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(LoginRequest model)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            if (string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
+            if (string.IsNullOrEmpty(request.Login) || string.IsNullOrEmpty(request.Password))
                 throw new ArgumentNullException("Ошибка ввода значения");
 
-            var user = await _userService.FindUserByLogin(model.Login);
-            if (user.Password != model.Password)
+            var user = await _userService.FindUserByLogin(request.Login);
+            if (user.Password != request.Password)
                 throw new InvalidOperationException("Введен неверный пароль");   
 
                 //аутентификация с помощью Cookies
@@ -47,7 +55,10 @@ namespace MyBlog.Api.Controllers
                 new ClaimsPrincipal(identity), timeAuth);
             return StatusCode(200);
         }
-
+        /// <summary>
+        /// Completed cookie's session
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("logout")]
         public async Task<IActionResult> LogOut()
@@ -55,7 +66,11 @@ namespace MyBlog.Api.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return StatusCode(200); 
         }
-
+        /// <summary>
+        /// Create user, admin role only
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns> 200ok</returns>
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("createUser")]
@@ -71,6 +86,11 @@ namespace MyBlog.Api.Controllers
                 return StatusCode(400);
             }
         }
+        /// <summary>
+        /// get user data
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [Authorize]
         [Route("userpage")]
         [HttpGet]
@@ -87,6 +107,11 @@ namespace MyBlog.Api.Controllers
                 throw new Exception("Произошла внутренняя ошибка (Get user)");
             }  
         }
+        /// <summary>
+        /// get users data
+        /// </summary>
+        /// <returns>User's list</returns>
+        /// <exception cref="Exception"></exception>
         [Authorize]
         [Route("users")]
         [HttpGet]
@@ -102,7 +127,11 @@ namespace MyBlog.Api.Controllers
                 throw new Exception("Произошла внутренняя ошибка (Get users)");
             }
         }
-
+        /// <summary>
+        /// delte user
+        /// </summary>
+        /// <param name="id"> Guid </param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("deleteUser")]
@@ -118,7 +147,11 @@ namespace MyBlog.Api.Controllers
                 return StatusCode(404);
             }
         }
-
+        /// <summary>
+        /// edit user
+        /// </summary>
+        /// <param name="model"> edited user data</param>
+        /// <returns></returns>
         [HttpPatch]
         [Authorize]
         [Route("editUser")]
