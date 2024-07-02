@@ -56,7 +56,7 @@ namespace MyBlog.Controllers.Account
                 //аутентификация с помощью Cookies
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name )};
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)};
 
                 ClaimsIdentity identity = new ClaimsIdentity(claims, "Cookies");
 

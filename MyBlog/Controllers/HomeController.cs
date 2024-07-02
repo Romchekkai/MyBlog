@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MyBlog.BLL.Models;
@@ -77,28 +78,26 @@ namespace MyBlog.Controllers
             }
             
         }
-
+        [Authorize]
         public async Task<IActionResult> CreateComment(CommentViewModel model)
         {
-
             try
             {
+                var user = await _userService.FindUserByLogin(User.Identity!.Name!);
+                var userId = user.Id;
+
                 var form = HttpContext.Request.Form;
                 var ArticleID = form["modelID"];
-                var UserID = form["userID"];
-
                 Guid guidArticle = new Guid();
-                Guid guidUser = new Guid();
-
                 if (!ArticleID.IsNullOrEmpty())
                     guidArticle = new Guid($"{ArticleID}");
-                if (!UserID.IsNullOrEmpty())
-                    guidUser = new Guid($"{UserID}");
 
-                var commentModel = _mapper.Map<CommentModel>(model);
+
+                var commentModel = new CommentModel();
                 commentModel.ArticleId = guidArticle;
-                commentModel.UserId = guidUser;
-                commentModel.CreatedDate = DateTime.Now;
+                commentModel.UserId = userId;
+                commentModel.Text= model.Text;
+                commentModel.CreatedDate = DateTime.UtcNow;
 
                 await _commentService.CreateComment(commentModel);
 

@@ -1,11 +1,10 @@
-﻿@model MyBlog.Models.AccountModel.PostViewModel
+﻿@using System.Security.Claims
+@model MyBlog.Models.AccountModel.PostViewModel
 
 <link rel="stylesheet" href="~/css/posts.css" asp-append-version="true">
 <link rel="stylesheet" href="~/css/userPageArticle.css" asp-append-version="true">
 
 <a href='javascript: history.length > 1 ? history.go(-1): null'>Назад</a>
-<!--<a asp-area="" asp-controller="AccountManager" asp-action="UserPage">Назад</a>-->
-
 <div class="article-container"> 
     <div class="article-header">
         <h2 class="article-title">@Model.Title</h2>
@@ -37,12 +36,18 @@
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <div class="article-actions">
-                            <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
-                                <button type="submit" class="save-btn">
-                                    Удалить
-                                </button>
-                            </form>
-                            <a asp-controller="CommentManager" asp-action="EditComment" asp-route-id="@comment.Id" id="edit-save" method="post">Редактировать</a>
+                            @if (User.Identity is ClaimsIdentity claimsIdentity)
+                            {
+                                @if (User.IsInRole("Admin") || claimsIdentity.Name == comment.User.Login)
+                                {
+                                    <form asp-controller="CommentManager" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post">
+                                        <button type="submit" class="save-btn">
+                                            Удалить
+                                        </button>
+                                    </form>
+                                    <a asp-controller="CommentManager" asp-action="EditComment" asp-route-id="@comment.Id" id="edit-save" method="post">Редактировать</a>
+                                }
+                            }   
                         </div>
                     }
                 }
@@ -53,8 +58,6 @@
             {
                 <form asp-controller="CommentManager" asp-action="CreateComment" method="post">
                     <input name="modelID" type="" asp-for="@Model.Id" style="display: none" />
-
-                    <input name="userID" type="" asp-for="@Model.UserId" style="display: none" />
 
                     <label>Поле ввода комментария</label><br />
                     <span asp-validation-for="@Model.commentViewModel.Text" class="text-danger"></span>
@@ -70,5 +73,5 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
-<!-- Добавить в claim userid для ограничения правл по редактированию элементов  -->
+
       

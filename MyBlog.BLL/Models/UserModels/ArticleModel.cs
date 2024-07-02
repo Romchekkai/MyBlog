@@ -13,6 +13,7 @@ namespace MyBlog.BLL.Models.UserModels
         public string Title { get; set; }
         public string Description { get; set; }
         public Guid UserId { get; set; }
+        public UserModel User { get; set; }
         public string Tag { get; set; }
         public List<TagModel> Tags { get; set; } 
         public DateTime DatePosted { get; set; }

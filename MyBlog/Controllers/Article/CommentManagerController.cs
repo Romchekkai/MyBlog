@@ -30,22 +30,20 @@ namespace MyBlog.Controllers.Article
        
         public async Task<IActionResult> CreateComment(CommentViewModel commentViewModel)
         {
+            var user = await _userService.FindUserByLogin(User.Identity!.Name!);
+            var userId = user.Id;
+
             var form = HttpContext.Request.Form;
             var ArticleID = form["modelID"];
-            var UserID = form["userID"];
-
             Guid guidArticle = new Guid();
-            Guid guidUser = new Guid();
-
             if (!ArticleID.IsNullOrEmpty())  
                 guidArticle = new Guid($"{ArticleID}");
-            if (!UserID.IsNullOrEmpty())
-                guidUser = new Guid($"{UserID}");
 
-            var commentModel = _mapper.Map<CommentModel>(commentViewModel);
+            var commentModel = new CommentModel();
             commentModel.ArticleId = guidArticle;
-            commentModel.UserId = guidUser;
-            commentModel.CreatedDate = DateTime.Now;
+            commentModel.UserId = userId;
+            commentModel.Text = commentViewModel.Text;
+            commentModel.CreatedDate = DateTime.UtcNow;
 
             try
             {

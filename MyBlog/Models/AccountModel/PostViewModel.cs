@@ -12,6 +12,7 @@ namespace MyBlog.Models.AccountModel
         [Required(ErrorMessage = "Поле текст статьи обязательно для заполнения")]
         public string Description { get; set; }
         public Guid UserId { get; set; }
+        public MainViewModel User { get; set; }
         public string Tag { get; set; }
 
         public TagViewModel modelTag { get; set; }
